@@ -14,7 +14,6 @@ public class Resolver {
     private TestResult testResult; // from user
     private List<String> userQAs;
 
-    // TODO: LOAD ALL VARS
     List<Variable> currentVars;
     List<Variable> allVars;
 
@@ -47,7 +46,6 @@ public class Resolver {
         // przerzucenie JSONA do wewnętrznej struktury
         String[] tmpTab = QAcodes.split("\\)\\(");
 
-        // TODO: TUTAJ TRZEBA ZROBIC TAK, ŻEBY PYTANIE PQ1:A1,A2 DOSTALO PQ1:A1 PQ1:A2
         for(String code : tmpTab){
             code = code.replaceAll("\\)", "");
             code = code.replaceAll("\\(", "");
@@ -89,7 +87,7 @@ public class Resolver {
     }
 
     public void resolveStage_1(){
-        //TODO: LOAD FILES: 17, 37, 38
+        // LOAD FILES: 17, 37, 38
         try {
             loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/17.txt");
             loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/37.txt");
@@ -109,7 +107,7 @@ public class Resolver {
     }
 
     public void resolveStage_2() {
-        //TODO: LOAD FILES: 65
+        // LOAD FILES: 65
         try {
             loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/65.txt");
 
@@ -127,7 +125,7 @@ public class Resolver {
     }
 
     public void resolveStage_3(){
-        //TODO: LOAD FILES: 18, 67
+        // LOAD FILES: 18, 67
         try {
             loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/18.txt");
             loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/67.txt");
@@ -146,7 +144,7 @@ public class Resolver {
     }
 
     public void resolveStage_4(){
-        //TODO: LOAD FILES: 60
+        // LOAD FILES: 60
         try {
             loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/60.txt");
 
@@ -164,7 +162,7 @@ public class Resolver {
     }
 
     public void resolveStage_5(){
-        //TODO: LOAD FILES: 62, 11
+        // LOAD FILES: 62, 11
         try {
             loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/62.txt");
             loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/11.txt");

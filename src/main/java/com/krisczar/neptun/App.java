@@ -7,8 +7,8 @@ import java.io.IOException;
 
 public class App {
     public static void main(String args[]){
-        // TODO: LOAD ALL VARIABLES
-        // TODO: MAKE API GIVING LATEST RESULTS
+        // TODO: MAKE API SHOWING ALL USERS
+        // TODO: MAKE GUI
 
         Resolver res = new Resolver();
 

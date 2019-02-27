@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /*
-    TODO: Zrobic tak, zeby poronwywało tylko i wyłącznie Stringi a nie jakieś bardziej zaawansowane struktury.
+
 
  */
 
@@ -25,14 +25,12 @@ public class Variable {
         this.qAsTab = questionsAnswers.split(";");
     }
 
-
     public boolean checkMe(List<String> userQA){
-        // TODO: checkMe
         // pamietac o tym, ze jezeli wystepują plusy, to ma inaczej się zachowywać
         for(String qa: qAsTab){
 //            System.out.println(qa);
 
-            // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            // >>>>>>>>>>>>>>>DLA REGUL WIELOKROTNEGO WYBORU>>>>>>>>>>>>>>>>>>>>>>>>
             if(qa.contains("+")){
 //                Map<String, Integer> repeatsMap = new HashMap<String, Integer>();
                 String[] separateAns = qa.split("\\+");
@@ -47,7 +45,6 @@ public class Variable {
                     }
                 }
             }
-
             // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
@@ -71,15 +68,6 @@ public class Variable {
                 return true;
         }
         return false;
-    }
-
-    private int howManyCodeInList(List<String> userQA, String code){
-        int counter = 0;
-        for(String uqa : userQA){
-            if(uqa.equals(code))
-                counter++;
-        }
-        return counter;
     }
 
     public String getName() {
