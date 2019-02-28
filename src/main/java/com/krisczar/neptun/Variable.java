@@ -34,6 +34,7 @@ public class Variable {
             if(qa.contains("+")){
 //                Map<String, Integer> repeatsMap = new HashMap<String, Integer>();
                 String[] separateAns = qa.split("\\+");
+//                System.out.println("QA: " + qa);
 
                 int counter = 0;
                 for (String ans : separateAns) {
@@ -46,6 +47,17 @@ public class Variable {
                 }
             }
             // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            else if(qa.contains("|")){
+                String[] separateAns = qa.split("\\|");
+//                System.out.println("QA: " + qa);
+
+                for (String ans : separateAns) {
+                    if (isCodeInList(userQA, ans)){
+                        setName(name);
+                        break;
+                    }
+                }
+            }
 
 
             else {

@@ -6,8 +6,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Resolver {
     private String groupId;
@@ -17,8 +16,7 @@ public class Resolver {
     List<Variable> currentVars;
     List<Variable> allVars;
 
-    int userId = 513; // krzysioAdmin
-//    int userId = 552; // krzysioAdmin
+    int userId = 292; // test
 
     public Resolver(){
         this.userQAs = new ArrayList<String>();
@@ -37,7 +35,7 @@ public class Resolver {
         testResult = g.fromJson(response, TestResult.class);
 
         String resultsStr = testResult.getBeforeAnswers() + testResult.getAfterAnswers();
-        System.out.println(resultsStr);
+//        System.out.println(resultsStr);
 
         convertUserQAs(resultsStr);
     }
@@ -62,7 +60,7 @@ public class Resolver {
             for(String ansCode : answers){
                 ansCode = ansCode.replaceAll(" ", "");
                 String properCode = questionCode + ":" + ansCode;
-                System.out.println(properCode);
+//                System.out.println(properCode);
                 userQAs.add(properCode);
             }
         }
@@ -89,15 +87,23 @@ public class Resolver {
     public void resolveStage_1(){
         // LOAD FILES: 17, 37, 38
         try {
-            loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/17.txt");
-            loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/37.txt");
-            loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/38.txt");
+            // BLOK 1
+            loadVariablesFromFile("files/blok_1/17.txt");
+            loadVariablesFromFile("files/blok_1/37.txt");
+            loadVariablesFromFile("files/blok_1/38.txt");
+
+            // BLOK 2
+            // TODO: LOAD FILES FROM BLOK 2 30, 24
+            loadVariablesFromFile("files/blok_2/30.txt");
+            loadVariablesFromFile("files/blok_2/24.txt");
+
 
             for(Variable var : allVars){
                 if (!var.value && var.checkMe(userQAs)) {
                     System.out.println("Resolved " + var.getName());
                     currentVars.add(var);
-                    userQAs.add(var.getName());
+//                    userQAs.add(var.getName());
+                    addToUserQAs(var.getName());
                 }
             }
 
@@ -109,13 +115,20 @@ public class Resolver {
     public void resolveStage_2() {
         // LOAD FILES: 65
         try {
-            loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/65.txt");
+            // BLOK 1
+            loadVariablesFromFile("files/blok_1/65.txt");
+
+            // BLOK 2
+            // TODO: LOAD FILES FROM BLOK 2 31, 23
+            loadVariablesFromFile("files/blok_2/31.txt");
+            loadVariablesFromFile("files/blok_2/23.txt");
 
             for (Variable var : allVars) {
                 if (!var.value && var.checkMe(userQAs)) {
                     System.out.println("Resolved " + var.getName());
                     currentVars.add(var);
-                    userQAs.add(var.getName());
+//                    userQAs.add(var.getName());
+                    addToUserQAs(var.getName());
                 }
             }
 
@@ -127,14 +140,20 @@ public class Resolver {
     public void resolveStage_3(){
         // LOAD FILES: 18, 67
         try {
-            loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/18.txt");
-            loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/67.txt");
+            // BLOK 1
+            loadVariablesFromFile("files/blok_1/18.txt");
+            loadVariablesFromFile("files/blok_1/67.txt");
+
+            // BLOK 2
+            // TODO: LOAD FILES FROM BLOK 2 35
+            loadVariablesFromFile("files/blok_2/35.txt");
 
             for (Variable var : allVars) {
                 if (!var.value && var.checkMe(userQAs)) {
                     System.out.println("Resolved " + var.getName());
                     currentVars.add(var);
-                    userQAs.add(var.getName());
+//                    userQAs.add(var.getName());
+                    addToUserQAs(var.getName());
                 }
             }
 
@@ -144,17 +163,64 @@ public class Resolver {
     }
 
     public void resolveStage_4(){
+        Stage_4("files/blok_1/60.txt");
+        Stage_4("files/blok_2/27.txt");
+
+    }
+
+    private void Stage_4(String fileName){
         // LOAD FILES: 60
+        // TODO: OUTPUT IS ONE VAR FROM THIS STAGE
         try {
-            loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/60.txt");
+            // BLOK 1
+//            loadVariablesFromFile("files/blok_1/60.txt");
+            loadVariablesFromFile(fileName);
+
+            // BLOK 2
+            // TODO: LOAD FILES FROM BLOK 2 27
+//            loadVariablesFromFile("files/blok_2/27.txt");
+
+            List<Variable> tmpCurrentVars = new ArrayList<Variable>();
 
             for (Variable var : allVars) {
                 if (!var.value && var.checkMe(userQAs)) {
                     System.out.println("Resolved " + var.getName());
-                    currentVars.add(var);
-                    userQAs.add(var.getName());
+                    tmpCurrentVars.add(var);
+//                    userQAs.add(var.getName());
                 }
             }
+
+            Map<String, Integer> counter = new HashMap<String, Integer>();
+            // init
+            for(Variable var : tmpCurrentVars){
+                counter.put(var.getName(), 0);
+            }
+
+            // resolving
+            for(Variable var : tmpCurrentVars){
+                counter.put(var.getName(), counter.get(var.getName())+1);
+            }
+
+            // adding to userQAs VAR with higher frequency
+            int maxValueInMap=(Collections.max(counter.values()));  // This will return max value in the Hashmap
+            for (Map.Entry<String, Integer> entry : counter.entrySet()) {  // Itrate through hashmap
+                if (entry.getValue()==maxValueInMap) {
+//                    System.out.println(entry.getKey());     // Print the key with max value
+//                    userQAs.add(entry.getKey());
+                    addToUserQAs(entry.getKey());
+
+                    //adding this var to resolved vars
+                    for(Variable var : tmpCurrentVars){
+                        if (var.getName().equals(entry.getKey())){
+                            currentVars.add(var);
+                            break;
+                        }
+                    }
+
+                    break;
+                }
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -164,19 +230,38 @@ public class Resolver {
     public void resolveStage_5(){
         // LOAD FILES: 62, 11
         try {
-            loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/62.txt");
-            loadVariablesFromFile("/Users/krzysztofczarnecki/Documents/GitHub/neptun-fcm-admin/files/11.txt");
+            // BLOK 1
+            loadVariablesFromFile("files/blok_1/62.txt");
+            loadVariablesFromFile("files/blok_1/11.txt");
+
+            // BLOK 2
+            // TODO: LOAD FILES FROM BLOK 2 77
+            loadVariablesFromFile("files/blok_2/77.txt");
 
             for (Variable var : allVars) {
                 if (!var.value && var.checkMe(userQAs)) {
                     System.out.println("Resolved " + var.getName());
                     currentVars.add(var);
-                    userQAs.add(var.getName());
+//                    userQAs.add(var.getName());
+                    addToUserQAs(var.getName());
                 }
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void addToUserQAs(String code){
+        String[] codes = code.split(";");
+        for(String tmp : codes)
+            userQAs.add(tmp);
+    }
+
+    public void printAllQAs(){
+        System.out.println("\n\nWYNIKI");
+        for(String qas : userQAs){
+            System.out.println(qas);
         }
     }
 }
