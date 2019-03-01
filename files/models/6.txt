@@ -1,0 +1,5 @@
+﻿PR1;40-60_stopni_względem_ziemi
+PR2;70-90_stopni_względem_ziemi
+PR3;20-40_stopni_względem_ziemi
+PR4;20-40_stopni_względem_ziemi_lub_70-90_stopni_względem_ziemi
+PR5;Brak

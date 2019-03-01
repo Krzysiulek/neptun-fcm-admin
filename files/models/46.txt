@@ -1,0 +1,10 @@
+﻿CWZ1;Czas_wykonania_zadania_sterowniczego_(min.):_1:01_i_więcej
+CWZ2;Czas_wykonania_zadania_sterowniczego_(min.):_0:31-1:00
+CWZ3;Czas_wykonania_zadania_sterowniczego_(min.):_0:21-0:30
+CWZ4;Czas_wykonania_zadania_sterowniczego_(min.):_0:11-0:20
+CWZ5;Czas_wykonania_zadania_sterowniczego_(min.):_0-0:10
+CWZ6;Czas_wykonania_zadania_sterowniczego_(min.):_16:01_i_więcej
+CWZ7;Czas_wykonania_zadania_sterowniczego_(min.):_12:01-16:00
+CWZ8;Czas_wykonania_zadania_sterowniczego_(min.):_8:01-12:00
+CWZ9;Czas_wykonania_zadania_sterowniczego_(min.):_4:01-8:00
+CWZ10;Czas_wykonania_zadania_sterowniczego_(min.):_0:00-4:00

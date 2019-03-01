@@ -1,0 +1,23 @@
+﻿R1;Klawiatura_komputerowa
+R2;Mysz_komputerowa
+R3;Mysz_komputerowa_z_trackballem
+R4;Touchscreen
+R5;Joystick
+R6;Gamepad
+R7;Micro-joystick
+R8;Przycisk_nawigacji
+R9;Klawiatura_telefonu_komórkowego
+R10;Kontroler ruchu
+R11;Touchpad
+R12;Trackball
+R13;Mysz_komputerowa_typu_joystick
+R14;Długopis_świetlny
+R15;Pilot
+R16;Klawiatura_ekranowa
+R17;Brak
+R18;Klawiatura_mumeryczna
+R19;Rollermouse
+R20;Mysz_typu_3D
+R21;Kontroler_gier_typu_kierownica
+R22;Przycisk
+R23;Pokrętło

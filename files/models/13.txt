@@ -1,0 +1,15 @@
+﻿K1;Komputer_PC
+K2;Komputer_all_in_one
+K3;Laptop
+K4;Notebook
+K5;Smartfon
+K6;Tablet
+K7;Pad
+K8;Nawigacja_GPS
+K9;Odtwarzacz_muzyki
+K10;Telefon_komórkowy
+K11;Konsola_gier
+K12;Podręczna_konsola_gier
+K13;Elektroniczny_czytnik_książek
+K14;Telewizor_cyfrowy
+K15;Aparat_fotograficzny

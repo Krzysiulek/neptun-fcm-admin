@@ -1,0 +1,8 @@
+﻿SA1;wciśnięcie
+SA2;obrót
+SA3;przesunięcie
+SA4;przemieszczenie
+SA5;dotyk
+SA6;dotyk_i_dotyk_z_przesunięciem
+SA7;brak
+SA8;zacisk

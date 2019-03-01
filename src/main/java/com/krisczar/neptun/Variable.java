@@ -21,7 +21,7 @@ public class Variable {
     public Variable(String questionsAnswers, String name){
         this.questionsAnswers = questionsAnswers.replaceAll("\uFEFF", "");
         this.name = name;
-        this.group = name.replaceAll("\\[0-9]]", "");
+        setGroup(name);
         this.qAsTab = questionsAnswers.split(";");
     }
 
@@ -96,7 +96,7 @@ public class Variable {
     }
 
     private void setGroup(String name){
-        this.group = name.replaceAll("\\[0-9]]", "");
+        this.group = name.replaceAll("[0-9]", "");
     }
 
     public void printAll(){

@@ -1,0 +1,4 @@
+﻿RC1;zaciśnięcie
+RC2;objęcie
+RC3;nacisk
+RC4;brak

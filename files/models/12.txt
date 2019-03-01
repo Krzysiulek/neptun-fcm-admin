@@ -1,0 +1,13 @@
+﻿T1;Czytać
+T2;Dzwonić
+T3;Uprawiać_sport
+T4;Wykonywać_zdjęcia
+T5;Korzystać_z_Internetu
+T6;Korzystać_ze_specjalistycznego_oprogramowania
+T7;Korzystać_z_elektronicznych_map
+T8;Rozmawiać_na_Spypie
+T9;Przeglądać_zdjęcia
+T10;Słuchać_muzyki
+T11;Oglądać_filmy
+T12;Grać_w_gry
+T13;Pisać

@@ -1,0 +1,5 @@
+﻿IR1;urządzenie_jednoręczne
+IR2;urządzenie_dwuręczne
+IR3;urządzenie_dwuręczne_lub_ewentualnie_jednoręczne
+IR4;urządzenie_jednoręczne_lub_dwuręczne
+IR5;Brak

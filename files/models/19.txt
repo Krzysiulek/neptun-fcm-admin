@@ -1,0 +1,4 @@
+﻿CO1;Osoba_mało_obiektywna_i_możliwy_opór_w_nauce
+CO2;Osobba_niezdecydowana
+CO3;Osoba_zdecydowana_i_wiarygodna
+CO4;Osoba_mogąca_być_skrupulatnie_dokładna

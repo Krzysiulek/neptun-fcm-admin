@@ -9,18 +9,14 @@ import java.util.Map;
 
 public class App {
     public static void main(String args[]){
-        // TODO: MAKE API SHOWING ALL USERS
-        // TODO: MAKE GUI
 
+        String tmp = "Duppaa1234";
+        System.out.println(tmp);
+//        tmp = tmp.replaceAll();
 
-//        Map<String, Integer> counter = new HashMap<String, Integer>();
-//        counter.put("dupa", 0);
-//        counter.put("dupa", counter.get("dupa")+1);
-//        counter.put("dupa", counter.get("dupa")+1);
-//        counter.put("dupa", counter.get("dupa")+1);
-//        System.out.println(counter.get("dupa"));
+        Resolver.getUsersIDs();
 
-        Resolver res = new Resolver();
+        Resolver res = new Resolver(292);
 
         System.out.println("\n>>>>>>>>>>>>>>>>");
         System.out.println("Stage 1\n");

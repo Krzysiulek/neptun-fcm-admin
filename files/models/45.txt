@@ -1,0 +1,10 @@
+﻿ODS1;Dokładność_wykonania_zadania_sterowniczego_(odchylenie):_201_i_więcej
+ODS2;Dokładność_wykonania_zadania_sterowniczego_(odchylenie):_151-200
+ODS3;Dokładność_wykonania_zadania_sterowniczego_(odchylenie):_101-150
+ODS4;Dokładność_wykonania_zadania_sterowniczego_(odchylenie):_51-100
+ODS5;Dokładność_wykonania_zadania_sterowniczego_(odchylenie):_0-50
+ODS6;Dokładność_wykonania_zadania_sterowniczego_(liczba_błędów):_81_i_więcej
+ODS7;Dokładność_wykonania_zadania_sterowniczego_(liczba_błędów):_61-80
+ODS8;Dokładność_wykonania_zadania_sterowniczego_(liczba_błędów):_41-60
+ODS9;Dokładność_wykonania_zadania_sterowniczego_(liczba_błędów):_21-40
+ODS10;Dokładność_wykonania_zadania_sterowniczego_(liczba_błędów):_0-20

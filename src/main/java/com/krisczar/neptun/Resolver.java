@@ -1,14 +1,18 @@
 package com.krisczar.neptun;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.springframework.web.client.RestTemplate;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
 public class Resolver {
+    // TODO: LOAD ALL MODELS AND PRINT THEM NEXT TO CODES
+    // TODO: IMPLEMENT BLOK 3
     private String groupId;
     private TestResult testResult; // from user
     private List<String> userQAs;
@@ -18,7 +22,8 @@ public class Resolver {
 
     int userId = 292; // test
 
-    public Resolver(){
+    public Resolver(int userId){
+        this.userId = userId;
         this.userQAs = new ArrayList<String>();
         this.allVars = new ArrayList<Variable>();
         this.currentVars = new ArrayList<Variable>();
@@ -93,9 +98,13 @@ public class Resolver {
             loadVariablesFromFile("files/blok_1/38.txt");
 
             // BLOK 2
-            // TODO: LOAD FILES FROM BLOK 2 30, 24
-            loadVariablesFromFile("files/blok_2/30.txt");
             loadVariablesFromFile("files/blok_2/24.txt");
+            loadVariablesFromFile("files/blok_2/30.txt");
+            // BLOK 2.1
+            loadVariablesFromFile("files/blok_2_1/20.txt");
+            loadVariablesFromFile("files/blok_2.1/69.txt");
+            loadVariablesFromFile("files/blok_2.1/81.txt");
+
 
 
             for(Variable var : allVars){
@@ -119,7 +128,6 @@ public class Resolver {
             loadVariablesFromFile("files/blok_1/65.txt");
 
             // BLOK 2
-            // TODO: LOAD FILES FROM BLOK 2 31, 23
             loadVariablesFromFile("files/blok_2/31.txt");
             loadVariablesFromFile("files/blok_2/23.txt");
 
@@ -145,7 +153,6 @@ public class Resolver {
             loadVariablesFromFile("files/blok_1/67.txt");
 
             // BLOK 2
-            // TODO: LOAD FILES FROM BLOK 2 35
             loadVariablesFromFile("files/blok_2/35.txt");
 
             for (Variable var : allVars) {
@@ -165,19 +172,16 @@ public class Resolver {
     public void resolveStage_4(){
         Stage_4("files/blok_1/60.txt");
         Stage_4("files/blok_2/27.txt");
-
     }
 
     private void Stage_4(String fileName){
         // LOAD FILES: 60
-        // TODO: OUTPUT IS ONE VAR FROM THIS STAGE
         try {
             // BLOK 1
 //            loadVariablesFromFile("files/blok_1/60.txt");
             loadVariablesFromFile(fileName);
 
             // BLOK 2
-            // TODO: LOAD FILES FROM BLOK 2 27
 //            loadVariablesFromFile("files/blok_2/27.txt");
 
             List<Variable> tmpCurrentVars = new ArrayList<Variable>();
@@ -235,7 +239,6 @@ public class Resolver {
             loadVariablesFromFile("files/blok_1/11.txt");
 
             // BLOK 2
-            // TODO: LOAD FILES FROM BLOK 2 77
             loadVariablesFromFile("files/blok_2/77.txt");
 
             for (Variable var : allVars) {
@@ -252,6 +255,174 @@ public class Resolver {
         }
     }
 
+    public void resolveOneAnswer(String fileName){
+        try {
+            loadVariablesFromFile(fileName);
+
+            List<Variable> tmpCurrentVars = new ArrayList<Variable>();
+
+            for (Variable var : allVars) {
+                if (!var.value && var.checkMe(userQAs)) {
+                    System.out.println("Resolved " + var.getName());
+                    tmpCurrentVars.add(var);
+//                    userQAs.add(var.getName());
+                    System.out.println("Vars num: " + tmpCurrentVars.size());
+                }
+            }
+
+            if(tmpCurrentVars.size() == 0){
+                return;
+            }
+
+            Map<String, Integer> counter = new HashMap<String, Integer>();
+
+            // init
+            for(Variable var : tmpCurrentVars){
+                System.out.println("Name: " + var.getName());
+                counter.put(var.getName(), 0);
+            }
+
+            // resolve
+            for(Variable var : tmpCurrentVars){
+                System.out.println("Name: " + var.getName());
+                counter.put(var.getName(), counter.get(var.getName())+1);
+            }
+
+            int maxValueInMap = (Collections.max(counter.values()));  // This will return max value in the Hashmap
+
+
+            for (Map.Entry<String, Integer> entry : counter.entrySet()) {  // Itrate through hashmap
+                if (entry.getValue()==maxValueInMap) {
+//                    System.out.println(entry.getKey());     // Print the key with max value
+//                    userQAs.add(entry.getKey());
+                    addToUserQAs(entry.getKey());
+
+                    //adding this var to resolved vars
+                    for(Variable var : tmpCurrentVars){
+                        if (var.getName().equals(entry.getKey())){
+                            currentVars.add(var);
+                            break;
+                        }
+                    }
+
+                    break;
+                }
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+//            resolveMoreAnswers(fileName);
+        }
+    }
+
+    public void resolveMoreAnswers(String fileName){
+        // LOAD FILES: 62, 11
+        try {
+            // BLOK 1
+            loadVariablesFromFile(fileName);
+
+
+            for (Variable var : allVars) {
+                if (!var.value && var.checkMe(userQAs)) {
+                    System.out.println("Resolved " + var.getName());
+                    currentVars.add(var);
+//                    userQAs.add(var.getName());
+                    addToUserQAs(var.getName());
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "File not found: " + e.getMessage());
+        }
+    }
+
+    public void resolveSection_1(){
+        userQAs.add("\n################## BLOK_1 ##################");
+        // Stage 1
+        userQAs.add("\n<<< STAGE_1 >>>");
+        resolveOneAnswer("files/blok_1/17.txt");
+        resolveMoreAnswers("files/blok_1/37.txt");
+        resolveMoreAnswers("files/blok_1/38.txt");
+
+        //Stage 2
+        userQAs.add("\n<<< STAGE_2 >>>");
+        resolveMoreAnswers("files/blok_1/65.txt");
+
+        userQAs.add("\n<<< STAGE_3 >>>");
+        resolveOneAnswer("files/blok_1/67.txt");
+        resolveOneAnswer("files/blok_1/18.txt");
+
+        userQAs.add("\n<<< STAGE_4 >>>");
+        resolveOneAnswer("files/blok_1/60.txt");
+
+        userQAs.add("\n<<< STAGE_5 >>>");
+        resolveOneAnswer("files/blok_1/62.txt");
+        resolveOneAnswer("files/blok_1/11.txt");
+    }
+
+    public void resolveSection_2(){
+        userQAs.add("\n\n\n################## BLOK_2 ##################");
+        // Stage 1
+        userQAs.add("\n<<< STAGE_1 >>>");
+        resolveMoreAnswers("files/blok_2/24.txt");
+        resolveOneAnswer("files/blok_2/30.txt");
+
+        resolveMoreAnswers("files/blok_2.1/20.txt");
+        resolveMoreAnswers("files/blok_2.1/69.txt");
+        resolveMoreAnswers("files/blok_2.1/81.txt");
+
+
+        // Stage 2
+        userQAs.add("\n<<< STAGE_2 >>>");
+        resolveMoreAnswers("files/blok_2/23.txt");
+        resolveMoreAnswers("files/blok_2/31.txt");
+
+        // Stage 3
+        userQAs.add("\n<<< STAGE_3 >>>");
+        resolveMoreAnswers("files/blok_2/35.txt");
+
+        // Stage 4
+        userQAs.add("\n<<< STAGE_4 >>>");
+        resolveMoreAnswers("files/blok_2/27.txt");
+
+        // Stage 5
+        userQAs.add("\n<<< STAGE_5 >>>");
+        resolveMoreAnswers("files/blok_2/77.txt");
+    }
+
+    public void resolveSection_3(){
+        // TODO: DO STH
+
+        userQAs.add("\n\n\n################## BLOK_3 ##################");
+        // Stage 1
+        userQAs.add("\n<<< STAGE_1 >>>");
+        resolveMoreAnswers("files/blok_3/42.txt");
+        resolveMoreAnswers("files/blok_3/48.txt");
+        resolveOneAnswer("files/blok_3/43.txt");
+        resolveOneAnswer("files/blok_3/44.txt");
+
+        // Stage 2
+        userQAs.add("\n<<< STAGE_2 >>>");
+        resolveMoreAnswers("files/blok_3/47.txt");
+        resolveOneAnswer("files/blok_3/49.txt");
+        resolveOneAnswer("files/blok_3/50.txt");
+        resolveOneAnswer("files/blok_3/63.txt");
+        resolveOneAnswer("files/blok_3/72.txt");
+        // TODO: SUMY
+
+        // Stage 3
+        userQAs.add("\n<<< STAGE_3 >>>");
+
+        // Stage 4
+        userQAs.add("\n<<< STAGE_4 >>>");
+
+        // Stage 5
+        userQAs.add("\n<<< STAGE_5 >>>");
+
+    }
+
     private void addToUserQAs(String code){
         String[] codes = code.split(";");
         for(String tmp : codes)
@@ -263,5 +434,33 @@ public class Resolver {
         for(String qas : userQAs){
             System.out.println(qas);
         }
+    }
+
+    public static String getUsersIDs(){
+        final String URL = "https://neptun-fcm.herokuapp.com/admin/api/users/id/all";
+        RestTemplate restTemplate = new RestTemplate();
+        String response = restTemplate.getForObject(URL, String.class);
+
+        Gson g = new Gson();
+        Map<String, Integer> son = new Gson().fromJson(response, HashMap.class);
+
+        System.out.println(son.get("test"));
+
+        System.out.println(response);
+//        System.out.println(resultsStr);
+
+        return response;
+    }
+
+    public String getAllQAs(){
+        ModelResolver.loadAllModels();
+        String tmp = "";
+
+        for (String qa:
+             userQAs) {
+            tmp += qa + ": " + ModelResolver.getModel(qa) + "\n\n";
+        }
+
+        return tmp;
     }
 }
