@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 public class testGui {
     public static void main ( String[] args )
     {
+        ModelResolver.loadAllModels();
 
         JPanel middlePanel = new JPanel ();
         JButton button1 = new JButton("Get All Users");

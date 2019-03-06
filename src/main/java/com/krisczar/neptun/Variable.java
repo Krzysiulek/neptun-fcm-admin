@@ -32,18 +32,27 @@ public class Variable {
 
             // >>>>>>>>>>>>>>>DLA REGUL WIELOKROTNEGO WYBORU>>>>>>>>>>>>>>>>>>>>>>>>
             if(qa.contains("+")){
+                System.out.print("REGULA Z PLUSEM    :");
+                System.out.println(qa);
+
 //                Map<String, Integer> repeatsMap = new HashMap<String, Integer>();
                 String[] separateAns = qa.split("\\+");
 //                System.out.println("QA: " + qa);
 
                 int counter = 0;
                 for (String ans : separateAns) {
-                    counter++;
                     if (isCodeInList(userQA, ans)){
-                        String[] tmp = name.split(">");
-                        setName(tmp[counter]);
-                        break;
+                        if(!name.contains(">")){
+                            setName(name);
+                            break;
+                        }
+                        else {
+                            String[] tmp = name.split(">");
+                            setName(tmp[counter]);
+                            break;
+                        }
                     }
+                    counter++;
                 }
             }
             // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -84,6 +93,10 @@ public class Variable {
 
     public String getName() {
         return name;
+    }
+
+    public String getGroup() {
+        return group;
     }
 
     public String getQuestionsAnswers() {

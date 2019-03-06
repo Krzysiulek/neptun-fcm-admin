@@ -9,11 +9,6 @@ import java.util.Map;
 
 public class App {
     public static void main(String args[]){
-
-        String tmp = "Duppaa1234";
-        System.out.println(tmp);
-//        tmp = tmp.replaceAll();
-
         Resolver.getUsersIDs();
 
 //        Resolver res = new Resolver(292);

@@ -63,6 +63,8 @@ public class ModelResolver {
 
         while ((line = file.readLine()) != null) {
             line = line.replaceAll("\uFEFF", "");
+            line = line.replaceAll(" ", "");
+            System.out.println(line);
 //            System.out.println(line);
 //            line = line.toUpperCase();
 
@@ -93,6 +95,10 @@ public class ModelResolver {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static void printAll(){
+
     }
 
 }

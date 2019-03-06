@@ -6,9 +6,11 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.swing.*;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class Resolver {
     // TODO: LOAD ALL MODELS AND PRINT THEM NEXT TO CODES
@@ -88,7 +90,6 @@ public class Resolver {
 
         file.close();
     }
-
 
     public void resolveOneAnswer(String fileName){
         try {
@@ -249,13 +250,116 @@ public class Resolver {
 
         // Stage 3
         userQAs.add("\n<<< STAGE_3 >>>");
+        resolveMoreAnswers("files/blok_3/51.txt");
 
         // Stage 4
         userQAs.add("\n<<< STAGE_4 >>>");
+        makeSums();
 
         // Stage 5
         userQAs.add("\n<<< STAGE_5 >>>");
+        resolveOneAnswer("files/blok_3/54.txt");
 
+
+    }
+
+    private void makeSums(){
+        // COUNTING SZ
+        int counterSZ = 0;
+        for(String code : userQAs){
+            if(Pattern.matches("SZ[0-9]+", code)){
+//                System.out.println(code);
+                counterSZ++;
+            }
+
+        }
+        System.out.println("SZ = " + counterSZ);
+
+        // CONVERTING SZ TO PSZ
+        String namePSZ = "";
+        BufferedReader file = null;
+        try {
+            file = new BufferedReader(new FileReader("files/models/83.txt"));
+            String line;
+
+            while ((line = file.readLine()) != null) {
+                line = line.replaceAll(" ", "");
+                line = line.replaceAll("\uFEFF", "");
+
+                String[] tmp = line.split(";");
+                String ans = tmp[0];
+                String interval = tmp[1];
+
+                String[] intervals = interval.split("-");
+                int lowerInterval = Integer.parseInt(intervals[0]);
+                int higherInterval = Integer.parseInt(intervals[1]);
+
+                if(counterSZ >= lowerInterval && counterSZ <= higherInterval){
+                    namePSZ = ans;
+                    userQAs.add(namePSZ);
+                    currentVars.add(new Variable("", namePSZ));
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // CONVERTING PSZ TO WSZ
+        String nameWSZ = namePSZ.replace("PSZ", "WSZ");
+        System.out.println("WSZ = " + nameWSZ);
+        userQAs.add(nameWSZ);
+        currentVars.add(new Variable("", nameWSZ));
+
+        String nameWCWZ = getVarNameFromGroup("WCWZ");
+        String nameWODS = getVarNameFromGroup("WODS");
+        System.out.println("WODS"+nameWODS);
+        System.out.println("WCWZ"+nameWCWZ);
+
+//        ModelResolver.loadAllModels();
+//        System.out.println("DUPA:" + ModelResolver.getModel(nameWODS));
+        double numbWSZ = Double.parseDouble(ModelResolver.getModel(nameWSZ));
+        double numbWSWZ = Double.parseDouble(ModelResolver.getModel(nameWCWZ));
+        double numbWODS = Double.parseDouble(ModelResolver.getModel(nameWODS));
+        double sum = numbWODS + numbWSWZ + numbWSZ;
+        userQAs.add("Suma WSZ, WSWZ, WODS = " + sum);
+
+        // CONVERTING SUM TO ZZOE
+        String nameZZOE = getZZOE(sum);
+        System.out.println("ZZOE: " + nameZZOE);
+        userQAs.add(nameZZOE);
+        currentVars.add(new Variable("", nameZZOE));
+
+    }
+
+    private String getZZOE(double sum){
+        String nameZZOE = "";
+        BufferedReader file = null;
+        try {
+            file = new BufferedReader(new FileReader("files/models/53.txt"));
+            String line;
+
+            while ((line = file.readLine()) != null) {
+                line = line.replaceAll(" ", "");
+                line = line.replaceAll("\uFEFF", "");
+
+                String[] tmp = line.split(";");
+                String ans = tmp[0];
+                String interval = tmp[1];
+
+                String[] intervals = interval.split("-");
+                double lowerInterval = Double.parseDouble(intervals[0]);
+                double higherInterval = Double.parseDouble(intervals[1]);
+
+                if(sum >= lowerInterval && sum <= higherInterval){
+                    nameZZOE = ans;
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return nameZZOE;
     }
 
     private void addToUserQAs(String code){
@@ -288,7 +392,6 @@ public class Resolver {
     }
 
     public String getAllQAs(){
-        ModelResolver.loadAllModels();
         String tmp = "";
 
         for (String qa:
@@ -297,5 +400,18 @@ public class Resolver {
         }
 
         return tmp;
+    }
+
+    private String getVarNameFromGroup(String group){
+        for(Variable tmp : currentVars){
+            if (tmp.getGroup().equals(group))
+                return tmp.getName();
+        }
+
+        for(Variable tmp : allVars){
+            if (tmp.getGroup().equals(group))
+                return tmp.getName();
+        }
+        return "varNotFoundByGroup";
     }
 }
