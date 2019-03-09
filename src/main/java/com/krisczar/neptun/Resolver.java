@@ -414,4 +414,14 @@ public class Resolver {
         }
         return "varNotFoundByGroup";
     }
+
+    public void printWWT(){
+        int i = 0;
+        for (Variable var :
+                currentVars) {
+            if (var.getGroup().equals("WT"))
+                i++;
+        }
+        System.out.println("ILE I: " + i);
+    }
 }

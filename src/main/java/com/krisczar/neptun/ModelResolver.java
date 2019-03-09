@@ -88,7 +88,8 @@ public class ModelResolver {
             }
             else{
                 tmp = tmp.replaceAll("_", " ");
-                return tmp;
+                String value = new String(tmp.getBytes("UTF-8"));
+                return value;
             }
 
         }catch (Exception e){

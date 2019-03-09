@@ -7,17 +7,23 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class testGui {
+    static String resolvedText = "";
+
     public static void main ( String[] args )
     {
         ModelResolver.loadAllModels();
 
+
         JPanel middlePanel = new JPanel ();
         JButton button1 = new JButton("Get All Users");
         JButton button2 = new JButton("Resolve User");
+        JButton button3 = new JButton("Copy");
         final JTextField textField = new JTextField("User_ID");
         textField.setPreferredSize(new Dimension(100, 30));
 
@@ -38,6 +44,7 @@ public class testGui {
         middlePanel.add ( scroll );
         middlePanel.add(button1);
         middlePanel.add(button2);
+        middlePanel.add(button3);
         middlePanel.add(textField);
 
 
@@ -66,7 +73,10 @@ public class testGui {
                     resolver.resolveSection_2();
                     resolver.resolveSection_3();
 
-                    display.setText(resolver.getAllQAs());
+                    resolvedText = resolver.getAllQAs();
+                    display.setText(resolvedText);
+
+                    resolver.printWWT();
 
                 }
                 catch (Exception ex){
@@ -76,6 +86,14 @@ public class testGui {
 
 
 
+            }
+        });
+
+        button3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                StringSelection stringSelection = new StringSelection(resolvedText);
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(stringSelection, null);
             }
         });
     }
