@@ -1,5 +1,6 @@
 package com.krisczar.neptun.fcm;
 
+import com.krisczar.neptun.Resolver;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -11,8 +12,13 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class XmlCreator {
+    private Set<String> uQas = new HashSet<>();
+
     private DocumentBuilderFactory dbFactory;
     private DocumentBuilder dBuilder;
     private Document doc;
@@ -22,7 +28,15 @@ public class XmlCreator {
     private Element conceptsElement;
     private Element connectionsElement;
 
+    // TODO: create concepts && connections
+
+    // TODO: change WT:SZ to SZ:WT in file 56
+
+
+
     XmlCreator(){
+        loadUserQAs();
+
         try{
             dbFactory =
                     DocumentBuilderFactory.newInstance();
@@ -64,6 +78,14 @@ public class XmlCreator {
 
     }
 
+    private void createConcept(){
+
+    }
+
+    private void createConnection(){
+
+    }
+
     private void saveMapToFile(String fileName){
         try{
             // write the content into xml file
@@ -76,6 +98,24 @@ public class XmlCreator {
         catch (Exception e){
          e.printStackTrace();
         }
+    }
+
+    private void loadUserQAs(){
+        List<String> userQAs = Resolver.getQAs();
+
+        userQAs.forEach(code -> {
+                if(code.matches("^R\\d*") ||
+                        code.matches("^WT\\d*") ||
+                        code.matches("^SZ\\d*") ||
+                        code.matches("^WWT\\d*") ||
+                        code.matches("^ZOI\\d*")) {
+                    uQas.add(code);
+                }
+
+        });
+
+
+
     }
 
 }

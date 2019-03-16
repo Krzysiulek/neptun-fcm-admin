@@ -1,12 +1,10 @@
 package com.krisczar.neptun;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.springframework.web.client.RestTemplate;
 
 import javax.swing.*;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -17,7 +15,7 @@ public class Resolver {
     // TODO: IMPLEMENT BLOK 3
     private String groupId;
     private TestResult testResult; // from user
-    private List<String> userQAs;
+    private static List<String> userQAs;
 
     List<Variable> currentVars;
     List<Variable> allVars;
@@ -443,5 +441,9 @@ public class Resolver {
                 i++;
         }
         System.out.println("ILE WT: " + i);
+    }
+
+    public static List<String> getQAs(){
+        return userQAs;
     }
 }
