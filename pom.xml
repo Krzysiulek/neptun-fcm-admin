@@ -29,6 +29,13 @@
             <version>2.8.5</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/javax.xml/jaxp-api -->
+        <dependency>
+            <groupId>javax.xml</groupId>
+            <artifactId>jaxp-api</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+
 
     </dependencies>
 

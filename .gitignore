@@ -27,3 +27,7 @@ hs_err_pid*
 out/*
 target/classes/META-INF/MANIFEST.MF
 *.MF
+map.xml
+cars.xml
+C:\cars.xml
+C:\cars.xml

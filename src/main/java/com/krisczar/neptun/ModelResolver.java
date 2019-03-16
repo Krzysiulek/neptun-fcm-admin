@@ -28,6 +28,7 @@ public class ModelResolver {
             loadVariablesFromFile("files/models/19.txt");
             loadVariablesFromFile("files/models/21.txt");
             loadVariablesFromFile("files/models/22.txt");
+            loadVariablesFromFile("files/models/25.txt");
             loadVariablesFromFile("files/models/26.txt");
             loadVariablesFromFile("files/models/28.txt");
             loadVariablesFromFile("files/models/29.txt");

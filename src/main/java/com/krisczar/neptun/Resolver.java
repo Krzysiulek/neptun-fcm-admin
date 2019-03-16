@@ -228,6 +228,16 @@ public class Resolver {
         resolveMoreAnswers("files/blok_2/77.txt");
     }
 
+    public void resolveSection_2_2(){
+        userQAs.add("\n\n\n################## BLOK_2.2 ##################");
+        resolveMoreAnswers("files/blok_2.2/34.txt");
+        resolveMoreAnswers("files/blok_2.2/60.txt");
+        resolveMoreAnswers("files/blok_2.2/88.txt");
+        resolveMoreAnswers("files/blok_2.2/91.txt");
+
+    }
+
+
     public void resolveSection_3(){
         // TODO: DO STH
 
@@ -297,7 +307,10 @@ public class Resolver {
                 if(counterSZ >= lowerInterval && counterSZ <= higherInterval){
                     namePSZ = ans;
                     userQAs.add(namePSZ);
-                    currentVars.add(new Variable("", namePSZ));
+
+                    Variable PSZvar = new Variable("", namePSZ);
+                    PSZvar.value = true;
+                    currentVars.add(PSZvar);
                     break;
                 }
             }
@@ -309,7 +322,10 @@ public class Resolver {
         String nameWSZ = namePSZ.replace("PSZ", "WSZ");
         System.out.println("WSZ = " + nameWSZ);
         userQAs.add(nameWSZ);
-        currentVars.add(new Variable("", nameWSZ));
+
+        Variable WSZvar = new Variable("", nameWSZ);
+        WSZvar.value = true;
+        currentVars.add(WSZvar);
 
         String nameWCWZ = getVarNameFromGroup("WCWZ");
         String nameWODS = getVarNameFromGroup("WODS");
@@ -317,18 +333,20 @@ public class Resolver {
         System.out.println("WCWZ"+nameWCWZ);
 
 //        ModelResolver.loadAllModels();
-//        System.out.println("DUPA:" + ModelResolver.getModel(nameWODS));
         double numbWSZ = Double.parseDouble(ModelResolver.getModel(nameWSZ));
         double numbWSWZ = Double.parseDouble(ModelResolver.getModel(nameWCWZ));
         double numbWODS = Double.parseDouble(ModelResolver.getModel(nameWODS));
         double sum = numbWODS + numbWSWZ + numbWSZ;
-        userQAs.add("Suma WSZ, WSWZ, WODS = " + sum);
+        userQAs.add("Suma WSZ, WCWZ, WODS = " + sum);
 
         // CONVERTING SUM TO ZZOE
         String nameZZOE = getZZOE(sum);
         System.out.println("ZZOE: " + nameZZOE);
+
         userQAs.add(nameZZOE);
-        currentVars.add(new Variable("", nameZZOE));
+        Variable ZZOEvar = new Variable("", nameZZOE);
+        ZZOEvar.value = true;
+        currentVars.add(ZZOEvar);
 
     }
 
@@ -383,7 +401,9 @@ public class Resolver {
         Gson g = new Gson();
         Map<String, Integer> son = new Gson().fromJson(response, HashMap.class);
 
-        System.out.println(son.get("test"));
+        response = response.replaceAll("\\{", "");
+        response = response.replaceAll("}", "");
+        response = response.replaceAll(",", "\n");
 
         System.out.println(response);
 //        System.out.println(resultsStr);
@@ -422,6 +442,6 @@ public class Resolver {
             if (var.getGroup().equals("WT"))
                 i++;
         }
-        System.out.println("ILE I: " + i);
+        System.out.println("ILE WT: " + i);
     }
 }

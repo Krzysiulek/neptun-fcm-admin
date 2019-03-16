@@ -72,6 +72,7 @@ public class testGui {
                     resolver.resolveSection_1();
                     resolver.resolveSection_2();
                     resolver.resolveSection_3();
+                    resolver.resolveSection_2_2();
 
                     resolvedText = resolver.getAllQAs();
                     display.setText(resolvedText);
