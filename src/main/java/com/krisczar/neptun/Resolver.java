@@ -446,4 +446,14 @@ public class Resolver {
     public static List<String> getQAs(){
         return userQAs;
     }
+
+    public boolean doActiveFCM(){
+        for (String tmp : userQAs){
+            if(ModelResolver.getModel(tmp).equals("NIESPEŁNIONY WYMAGANY POZIOM ERGONOMICZNOŚCI")){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

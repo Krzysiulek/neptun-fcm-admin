@@ -2,6 +2,7 @@ package com.krisczar.neptun.GUI;
 
 import com.krisczar.neptun.ModelResolver;
 import com.krisczar.neptun.Resolver;
+import com.krisczar.neptun.fcm.XmlCreator;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -78,6 +79,13 @@ public class testGui {
                     display.setText(resolvedText);
 
                     resolver.printWWT();
+
+                    if(resolver.doActiveFCM()){
+                        JOptionPane.showMessageDialog(null, "FCM is going to be used");
+                        XmlCreator xmlCreator = new XmlCreator();
+
+                        xmlCreator.mapCreator();
+                    }
 
                 }
                 catch (Exception ex){

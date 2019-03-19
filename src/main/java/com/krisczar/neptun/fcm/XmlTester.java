@@ -11,18 +11,6 @@ public class XmlTester {
 
         xmlCreator.mapCreator();
 
-        List<String> tmp = new ArrayList<String>();
-        tmp.add("a");
-        tmp.add("a");
-        tmp.add("a");
-        tmp.add("b");
-        tmp.add("b");
-        tmp.add("c");
-        tmp.add("d");
 
-        Set<String> tmp2 = new HashSet<>();
-        tmp.forEach(letter -> tmp2.add(letter));
-
-        tmp2.forEach(letter -> System.out.println(letter));
     }
 }
