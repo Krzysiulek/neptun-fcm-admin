@@ -15,7 +15,7 @@ public class Resolver {
     // TODO: IMPLEMENT BLOK 3
     private String groupId;
     private TestResult testResult; // from user
-    private static List<String> userQAs;
+    private static LinkedHashSet<String> userQAs;
 
     List<Variable> currentVars;
     List<Variable> allVars;
@@ -24,7 +24,7 @@ public class Resolver {
 
     public Resolver(int userId){
         this.userId = userId;
-        this.userQAs = new ArrayList<String>();
+        this.userQAs = new LinkedHashSet<>();
         this.allVars = new ArrayList<Variable>();
         this.currentVars = new ArrayList<Variable>();
         loadAllQA(userId);
@@ -71,9 +71,10 @@ public class Resolver {
         }
     }
 
-    private void loadVariablesFromFile(String fileName) throws IOException {
+    private ArrayList<Variable> loadVariablesFromFile(String fileName) throws IOException {
         BufferedReader file = new BufferedReader(new FileReader(fileName));
         String line;
+        ArrayList<Variable> tmpVars = new ArrayList<>();
 
         while ((line = file.readLine()) != null) {
             line = line.toUpperCase();
@@ -84,16 +85,20 @@ public class Resolver {
             String name = varSplitted[1];
 
             allVars.add(new Variable(answers, name));
+            tmpVars.add(new Variable(answers, name));
         }
 
         file.close();
+        return tmpVars;
     }
 
-    public void resolveOneAnswer(String fileName){
+    private void resolveOneAnswer(String fileName){
         try {
             loadVariablesFromFile(fileName);
+            ArrayList<Variable> tmpCurrentVars = new ArrayList<>();
 
-            List<Variable> tmpCurrentVars = new ArrayList<Variable>();
+            // TODO: do it like this under comment
+            // ArrayList<Variable> tmpCurrentVars = loadVariablesFromFile(fileName);
 
             for (Variable var : allVars) {
                 if (!var.value && var.checkMe(userQAs)) {
@@ -150,7 +155,7 @@ public class Resolver {
         }
     }
 
-    public void resolveMoreAnswers(String fileName){
+    private void resolveMoreAnswers(String fileName){
         // LOAD FILES: 62, 11
         try {
             // BLOK 1
@@ -172,26 +177,57 @@ public class Resolver {
         }
     }
 
+    private void resolveOneOrMore(String fileName){
+        try {
+            ArrayList<Variable> tmpVars = loadVariablesFromFile(fileName);
+
+            int licznik = 0;
+            for (Variable var : tmpVars) {
+                if (!var.value && var.checkMe(userQAs)) {
+                    System.out.println("Resolved " + var.getName());
+
+                    currentVars.add(var);
+                    addToUserQAs(var.getName());
+
+                    if(licznik == 0){
+                        System.out.println("Resolved Just Only One");
+                        break;
+                    }
+
+                    licznik++;
+                    System.out.println("Resolved More Than One");
+                }
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "File not found: " + e.getMessage());
+        }
+    }
+
+
+
     public void resolveSection_1(){
         userQAs.add("\n################## BLOK_1 ##################");
         // Stage 1
-        userQAs.add("\n<<< STAGE_1 >>>");
+        userQAs.add("\n<<< #1 STAGE_1 >>>");
         resolveOneAnswer("files/blok_1/17.txt");
         resolveMoreAnswers("files/blok_1/37.txt");
         resolveMoreAnswers("files/blok_1/38.txt");
 
         //Stage 2
-        userQAs.add("\n<<< STAGE_2 >>>");
+        userQAs.add("\n<<< #1 STAGE_2 >>>");
         resolveMoreAnswers("files/blok_1/65.txt");
 
-        userQAs.add("\n<<< STAGE_3 >>>");
+        userQAs.add("\n<<< #1 STAGE_3 >>>");
         resolveOneAnswer("files/blok_1/67.txt");
         resolveOneAnswer("files/blok_1/18.txt");
 
-        userQAs.add("\n<<< STAGE_4 >>>");
+        userQAs.add("\n<<< #1 STAGE_4 >>>");
         resolveOneAnswer("files/blok_1/60.txt");
 
-        userQAs.add("\n<<< STAGE_5 >>>");
+        userQAs.add("\n<<< #1 STAGE_5 >>>");
         resolveOneAnswer("files/blok_1/62.txt");
         resolveOneAnswer("files/blok_1/11.txt");
     }
@@ -199,7 +235,7 @@ public class Resolver {
     public void resolveSection_2(){
         userQAs.add("\n\n\n################## BLOK_2 ##################");
         // Stage 1
-        userQAs.add("\n<<< STAGE_1 >>>");
+        userQAs.add("\n<<< #2 STAGE_1 >>>");
         resolveMoreAnswers("files/blok_2/24.txt");
         resolveOneAnswer("files/blok_2/30.txt");
 
@@ -209,21 +245,49 @@ public class Resolver {
 
 
         // Stage 2
-        userQAs.add("\n<<< STAGE_2 >>>");
+        userQAs.add("\n<<< #2 STAGE_2 >>>");
         resolveMoreAnswers("files/blok_2/23.txt");
-        resolveMoreAnswers("files/blok_2/31.txt");
+        resolveOneAnswer("files/blok_2/31.txt");
 
         // Stage 3
-        userQAs.add("\n<<< STAGE_3 >>>");
-        resolveMoreAnswers("files/blok_2/35.txt");
+        userQAs.add("\n<<< #2 STAGE_3 >>>");
+        resolveOneOrMore("files/blok_2/101.txt");
+        resolveOneOrMore("files/blok_2/102.txt");
+        resolveOneOrMore("files/blok_2/103.txt");
+        resolveOneOrMore("files/blok_2/104.txt");
+        resolveOneOrMore("files/blok_2/105.txt");
+        resolveOneOrMore("files/blok_2/106.txt");
+        resolveOneOrMore("files/blok_2/107.txt");
+        resolveOneOrMore("files/blok_2/108.txt");
+        resolveOneOrMore("files/blok_2/109.txt");
+        resolveOneOrMore("files/blok_2/110.txt");
+        resolveOneOrMore("files/blok_2/111.txt");
+        resolveOneOrMore("files/blok_2/112.txt");
+        resolveOneOrMore("files/blok_2/113.txt");
+        resolveOneOrMore("files/blok_2/114.txt");
+        resolveOneOrMore("files/blok_2/115.txt");
+        resolveOneOrMore("files/blok_2/116.txt");
+        resolveOneOrMore("files/blok_2/117.txt");
+        resolveOneOrMore("files/blok_2/118.txt");
+        resolveOneOrMore("files/blok_2/119.txt");
+        resolveOneOrMore("files/blok_2/120.txt");
+        resolveOneOrMore("files/blok_2/121.txt");
+        resolveOneOrMore("files/blok_2/122.txt");
+        resolveOneOrMore("files/blok_2/123.txt");
+        resolveOneOrMore("files/blok_2/124.txt");
+        resolveOneOrMore("files/blok_2/125.txt");
+
+
+
+
 
         // Stage 4
-        userQAs.add("\n<<< STAGE_4 >>>");
+        userQAs.add("\n<<< #2 STAGE_4 >>>");
         resolveMoreAnswers("files/blok_2/27.txt");
 
         // Stage 5
-        userQAs.add("\n<<< STAGE_5 >>>");
-        resolveMoreAnswers("files/blok_2/77.txt");
+//        userQAs.add("\n<<< #2 STAGE_5 >>>");
+//        resolveMoreAnswers("files/blok_2/77.txt");
     }
 
     public void resolveSection_2_2(){
@@ -241,14 +305,14 @@ public class Resolver {
 
         userQAs.add("\n\n\n################## BLOK_3 ##################");
         // Stage 1
-        userQAs.add("\n<<< STAGE_1 >>>");
+        userQAs.add("\n<<< #3 STAGE_1 >>>");
         resolveMoreAnswers("files/blok_3/42.txt");
         resolveMoreAnswers("files/blok_3/48.txt");
         resolveOneAnswer("files/blok_3/43.txt");
         resolveOneAnswer("files/blok_3/44.txt");
 
         // Stage 2
-        userQAs.add("\n<<< STAGE_2 >>>");
+        userQAs.add("\n<<< #3 STAGE_2 >>>");
         resolveMoreAnswers("files/blok_3/47.txt");
         resolveOneAnswer("files/blok_3/49.txt");
         resolveOneAnswer("files/blok_3/50.txt");
@@ -257,15 +321,15 @@ public class Resolver {
         // TODO: SUMY
 
         // Stage 3
-        userQAs.add("\n<<< STAGE_3 >>>");
+        userQAs.add("\n<<< #3 STAGE_3 >>>");
         resolveMoreAnswers("files/blok_3/51.txt");
 
         // Stage 4
-        userQAs.add("\n<<< STAGE_4 >>>");
+        userQAs.add("\n<<< #3 STAGE_4 >>>");
         makeSums();
 
         // Stage 5
-        userQAs.add("\n<<< STAGE_5 >>>");
+        userQAs.add("\n<<< #3 STAGE_5 >>>");
         resolveOneAnswer("files/blok_3/54.txt");
 
 
@@ -443,7 +507,7 @@ public class Resolver {
         System.out.println("ILE WT: " + i);
     }
 
-    public static List<String> getQAs(){
+    public static LinkedHashSet<String> getQAs(){
         return userQAs;
     }
 

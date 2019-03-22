@@ -1,8 +1,7 @@
 package com.krisczar.neptun;
 
-import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 
 /*
 
@@ -25,7 +24,7 @@ public class Variable {
         this.qAsTab = questionsAnswers.split(";");
     }
 
-    public boolean checkMe(List<String> userQA){
+    public boolean checkMe(LinkedHashSet<String> userQA){
         // pamietac o tym, ze jezeli wystepują plusy, to ma inaczej się zachowywać
         for(String qa: qAsTab){
 //            System.out.println(qa);
@@ -83,7 +82,7 @@ public class Variable {
         return true;
     }
 
-    private boolean isCodeInList(List<String> userQA, String code){
+    private boolean isCodeInList(LinkedHashSet<String> userQA, String code){
         for(String uqa : userQA){
             if(uqa.equals(code))
                 return true;

@@ -52,6 +52,8 @@ public class testGui {
 
         // My code
         JFrame frame = new JFrame ();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         frame.add ( middlePanel );
         frame.pack ();
         frame.setLocationRelativeTo ( null );
@@ -65,15 +67,16 @@ public class testGui {
 
         button2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
+//                try {
                     int userID = Integer.parseInt(textField.getText());
 //                    System.out.println(userID);
                     Resolver resolver = new Resolver(userID);
 
                     resolver.resolveSection_1();
                     resolver.resolveSection_2();
-                    resolver.resolveSection_3();
                     resolver.resolveSection_2_2();
+                    resolver.resolveSection_3();
+
 
                     resolvedText = resolver.getAllQAs();
                     display.setText(resolvedText);
@@ -87,11 +90,11 @@ public class testGui {
                         xmlCreator.mapCreator();
                     }
 
-                }
-                catch (Exception ex){
-                    JOptionPane.showMessageDialog(null, "Incorrect userID: " + ex.getMessage());
-                    ex.printStackTrace();
-                }
+//                }
+//                catch (Exception ex){
+//                    JOptionPane.showMessageDialog(null, "Incorrect userID: " + ex.getMessage());
+//                    ex.printStackTrace();
+//                }
 
 
 

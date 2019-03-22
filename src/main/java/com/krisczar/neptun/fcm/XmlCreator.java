@@ -29,10 +29,6 @@ public class XmlCreator {
     private Element connectionsElement;
     private Element conceptsElement;
 
-    // TODO: create concepts && connections
-
-    // TODO: change WT:SZ to SZ:WT in file 56
-
 
 
     public XmlCreator(){
@@ -69,9 +65,16 @@ public class XmlCreator {
         loadUserQAs();
         loadWeights("files/fcm-files/52.txt");
 
+
+        // TODO: LOAD ALL 7 (8) FILES
         loadVarsFromFile("files/fcm-files/56.txt");
+        loadVarsFromFile("files/fcm-files/56_2.txt");
         loadVarsFromFile("files/fcm-files/57.txt");
+        loadVarsFromFile("files/fcm-files/58.txt");
+        loadVarsFromFile("files/fcm-files/59.txt");
         loadVarsFromFile("files/fcm-files/88.txt");
+        loadVarsFromFile("files/fcm-files/89.txt");
+        loadVarsFromFile("files/fcm-files/92.txt");
 
         createConcepts();
         createConnections();
@@ -90,6 +93,7 @@ public class XmlCreator {
         try {
             sc = new Scanner(file);
         } catch (FileNotFoundException e) {
+            System.out.println("File not found " + fileName);
             e.printStackTrace();
         }
 
@@ -98,13 +102,16 @@ public class XmlCreator {
             line = line.replaceAll(" ", "");
             line = line.replaceAll("\uFEFF", "");
 
+//            if(line != "" || line != null){
+                String[] tmp = line.split(":");
+                String[] tmp2 = tmp[1].split("=");
 
-            String[] tmp = line.split(":");
-            String[] tmp2 = tmp[1].split("=");
+                conceptVars.add(tmp[0]);
+                conceptVars.add(tmp2[0]);
+                connectionVars.add(line);
+//            }
 
-            conceptVars.add(tmp[0]);
-            conceptVars.add(tmp2[0]);
-            connectionVars.add(line);
+
         }
 
     }
@@ -140,13 +147,13 @@ public class XmlCreator {
         // <concept act="SIGNUM" input="0.0" name="Food" output="0.0" />
         Element conceptElement;
 
-        String inputValue = ifExistsInUQA(var);
+        String output = ifExistsInUQA(var);
 
         conceptElement = doc.createElement("concept");
         conceptElement.setAttribute("act", "SIGNUM");
-        conceptElement.setAttribute("input", inputValue);
+        conceptElement.setAttribute("input", "0.0");
         conceptElement.setAttribute("name", var);
-        conceptElement.setAttribute("output", "0.0");
+        conceptElement.setAttribute("output", output);
         conceptsElement.appendChild(conceptElement);
     }
 
@@ -201,7 +208,7 @@ public class XmlCreator {
     }
 
     private void loadUserQAs(){
-        List<String> userQAs = Resolver.getQAs();
+        LinkedHashSet<String> userQAs = Resolver.getQAs();
 
         userQAs.forEach(code -> {
                 if(code.matches("^R\\d*") ||
