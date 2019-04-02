@@ -309,6 +309,14 @@ public class ResolverNew {
         return false;
     }
 
+    public static boolean isCodeInResolvedList(String code){
+        for (VariableNew tmp : resolvedVariables){
+            if (tmp.name.equals(code))
+                return true;
+        }
+        return false;
+    }
+
     private List<VariableNew> loadRulesFile(String fileName) throws IOException {
         List<VariableNew> varsFromFile = new ArrayList<>();
         BufferedReader file = null;
