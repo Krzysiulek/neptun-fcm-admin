@@ -1,4 +1,4 @@
-package com.krisczar.neptun.FCM2;
+package com.krisczar.neptun.FCM;
 
 import org.megadix.jfcm.CognitiveMap;
 import org.megadix.jfcm.Concept;
@@ -9,11 +9,11 @@ import org.megadix.jfcm.conn.WeightedConnection;
 import org.megadix.jfcm.utils.FcmRunner;
 import org.megadix.jfcm.utils.SimpleFcmRunner;
 
-public class CreatorFCM {
+public class FCMCreator {
     CognitiveMap map;
     FcmRunner runner;
 
-    public CreatorFCM() {
+    public FCMCreator() {
         mapCreator();
 
         runner = new SimpleFcmRunner(map, 0.01, 10000000);
@@ -31,11 +31,20 @@ public class CreatorFCM {
     private void mapCreator(){
         map = new CognitiveMap("FCM");
         ConceptActivator af = new HyperbolicTangentActivator();
+
+        // TODO: CHOICE OF ACTIVATOR
+
         // load rules
         // make concepts
         // make connections
         // show results
+        makeConcepts(af);
+        makeConnections();
 
+
+    }
+
+    private void makeConcepts(ConceptActivator af){
         Concept c1 = new Concept("Interest rate", null, af, 0.0, 0.1, false);
         map.addConcept(c1);
 
@@ -47,7 +56,9 @@ public class CreatorFCM {
 
         Concept c4 = new Concept("Inflation", null, af, 0.0, 0.0, false);
         map.addConcept(c4);
+    }
 
+    private void makeConnections(){
         FcmConnection conn_1 = new WeightedConnection("Interest rate -> Productive investments", null, -0.8);
         map.addConnection(conn_1);
         FcmConnection conn_2 = new WeightedConnection("Productive investments -> Occupation", null, 1.0);
@@ -61,7 +72,6 @@ public class CreatorFCM {
         map.connect("Productive investments", "Productive investments -> Occupation", "Occupation");
         map.connect("Occupation", "Occupation -> Inflation", "Inflation");
         map.connect("Inflation", "Inflation -> Interest rate", "Interest rate");
-
     }
 
 

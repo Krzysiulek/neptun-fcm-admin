@@ -1,4 +1,4 @@
-package com.krisczar.neptun.FCM2;
+package com.krisczar.neptun.FCM;
 
 import org.megadix.jfcm.CognitiveMap;
 import org.megadix.jfcm.Concept;
