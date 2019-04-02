@@ -15,6 +15,15 @@
                 <configuration>
                     <source>8</source>
                     <target>8</target>
+
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>TestApp</mainClass>
+                        </manifest>
+                    </archive>
+
                 </configuration>
             </plugin>
         </plugins>
@@ -60,6 +69,15 @@
             <artifactId>jaxp-api</artifactId>
             <version>1.4.2</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13-beta-2</version>
+            <scope>test</scope>
+        </dependency>
+
 
 
     </dependencies>

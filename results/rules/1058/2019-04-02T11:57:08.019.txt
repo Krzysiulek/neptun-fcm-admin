@@ -1,0 +1,153 @@
+#0-0: PQ1:PA4: 
+#0-0: PQ2:PA27: 
+#0-0: Q1:A2: 
+#0-0: Q3:A4: 
+#0-0: Q4:A8: 
+#0-0: Q5:A11: 
+#0-0: Q6:A13: 
+#0-0: Q7:A15: 
+#0-0: Q8:A18: 
+#0-0: Q9:A20: 
+#0-0: Q10:A22: 
+#0-0: Q11:A24: 
+#0-0: Q12:A25: 
+#0-0: Q13:A28: 
+#0-0: Q14:A38: 
+#0-0: Q15:A54: 
+#0-0: Q16:A71: 
+#0-0: Q16:A78: 
+#0-0: Q16:A83: 
+#0-0: Q16:A61: 
+#0-0: Q16:A65: 
+#1-1: CPD: Komputery przenośne
+#1-1: T9: Przeglądać zdjęcia
+#1-1: RR18: Klawiatura mumeryczna
+#1-2: DRUIES155: Sekwencja doboru urządzeń i elementów sterowniczych nr 155
+#1-3: R3: Mysz komputerowa z trackballem
+#1-3: K4: Notebook
+#1-4: TE1: Dla dobranego RU/ES wykonaj test oceny zdolności manipulacji
+#1-4: IR1: urządzenie jednoręczne
+#1-4: RC1: zaciśnięcie
+#1-4: SA3: przesunięcie
+#1-4: PR1: 40-60 stopni względem ziemi
+#1-4: PH2: dłoń, serdeczny i palec mały
+#2-1: ZD10: Mrowienie palca 3-5
+#2-1: ZD18: Brak
+#2-2: PCT4: Dedykowane elementy sterownicze z chropowatą powierzchnią
+#2-2: PCT15: Brak dodatkowych zaleceń technicznych
+#2-4: ZG2: Zaleca się urządzenie z dodatkowymi programowalnymi przyciskami:
+#2-4: ZG4: Zaleca się urządzenie dla osoby praworęznej:
+#2-4: ZG5: Zaleca się by szerokość urządzenia w przypadku klawiatury wynosiła:
+#2-4: WWT4: 41-45
+#2-4: ZG6: Zaleca się by długość urządzenia pod dłonią wynisiła:
+#2-4: WWT10: 91-150
+#2-4: ZG7: Zaleca się by szerokość urządzenia pod dłonią wynosiła:
+#2-4: WWT15: 101-140
+#2-4: ZG8: Zaleca się by wysokość urządzenia pod dłonią wynosiła:
+#2-4: WWT20: 60-80
+#2-4: ZG9: Zaleca się by średnica urządzenia przy zacisku ręką wynosiła:
+#2-4: WWT25: 101-120
+#2-4: ZG10: Zaleca się by kąt pochylenia płaszczyzny uchwytu pod dłonią w kierunku do wewnątrz - na zewnątrz wynosił:
+#2-4: WWT26: 0-20
+#2-4: ZG11: Zaleca się by kąt pochylenia płaszczyzny uchwytu pod dłonią w kierunku dół-góra wynosił:
+#2-4: WWT32: -1-20
+#2-4: ZG12: Zaleca się by długość urządzenia pod palcami wynosiła:
+#2-4: WWT40: 71-80
+#2-4: ZG13: Zaleca się by szerokość urządzenia pod palcami wynosiła:
+#2-4: WWT45: 71-80
+#2-4: ZG14: Zaleca się by wysokość urządzenia pod palcami wynosiła:
+#2-4: WWT50: 56-80
+#2-4: ZG15: Zaleca się by kąt pochylenia płaszczyzny uchwytu pod palcami w kierunku do wewnątrz - na zewnątrz wynosił:
+#2-4: WWT51: -20
+#2-4: ZG16: Zaleca się by kąt pochylenia płaszczyzny uchwytu pod palcami w kierunku dół-góra wynosił:
+#2-4: WWT57: -1-20
+#2-4: ZG17: Zaleca się by długość wyprofilowań uchwytu z lewej strony wynosiła:
+#2-4: WWT65: 106-130
+#2-4: ZG18: Zaleca się by szerokość wyprofilowań uchwytu z lewej strony wynosiła:
+#2-4: WWT70: 61-75
+#2-4: ZG19: Zaleca się by głębokość wyprofilowań uchwytu z lewej strony wynosiła:
+#2-4: WWT75: 11-30
+#2-4: ZG20: Zaleca się by kierunek wyprofilowań uchwytu z lewej strony przebiegał:
+#2-4: WWT78: W linii prostej
+#2-4: ZG21: Zaleca się by położenie wyprofilowań uchwytu z lewej strony było zlokalizowane:
+#2-4: WWT85: Bardziej pośrodku wysokości urządzenia
+#2-4: ZG22: Zaleca się by długość wyprofilowań uchwytu z prawej strony wynosiła:
+#2-4: WWT90: 106-130
+#2-4: ZG23: Zaleca się by szerokość wyprofilowań uchwytu z prawej strony wynosiła:
+#2-4: WWT95: 61-75
+#2-4: ZG24: Zaleca się by głębokość wyprofilowań uchwytu z prawej strony wynosiła:
+#2-4: WWT100: 11-30
+#2-4: ZG25: Zaleca się by kierunek wyprofilowań uchwytu z prawej strony przebiegał:
+#2-4: WWT103: W linii prostej
+#2-4: ZG26: Zaleca się by położenie wyprofilowań uchwytu z prawej strony było zlokalizowane:
+#2-4: WWT110: Bardziej pośrodku wysokości urządzenia
+#2-4: ZG27: Zaleca się by długość wyprofilowań elementów sterowniczych wynosiła:
+#2-4: WWT115: 46-60
+#2-4: ZG28: Zaleca się by szerokość wyprofilowań elementów sterowniczych wynosiła:
+#2-4: WWT120: 46-60
+#2-4: ZG29: Zaleca się by głębokość wyprofilowań elementów sterowniczych wynosiła:
+#2-4: WWT125: 11-30
+#2-4: ZG30: Zaleca się by kierunek wyprofilowań elementów sterowniczych przebiegał:
+#2-4: WWT128: Centralnie wzdłuż RES
+#2-4: ZG31: Zaleca się by położenie wyprofilowań elementów sterowniczych było zlokalizowane:
+#2-4: WWT133: Centralnie
+#2-4: ZG32: Zaleca się by położenie elementów sterowniczych było zlokalizowane:
+#2-4: WWT140: Od góry urządzenia
+#2-4: ZG33: Zaleca się by długość elementów sterowniczych wynosiła:
+#2-4: WWT145: 51-60
+#2-4: ZG34: Zaleca się by szerokość elementów sterowniczych wynosiła:
+#2-4: WWT150: 51-60
+#2-4: ZG35: Zaleca się by wykosość elementów sterowniczych od uchwytu lub podstawy urządzenia wynosiła (dla małych RUS):
+#2-4: WWT155: 31-40
+#2-4: ZG36: Zaleca się by wykosość elementów sterowniczych od uchwytu lub podstawy urządzenia wynosiła (dla dużych RUS):
+#2-4: WWT160: 201-300
+#2-4: ZG37: Zaleca się by siła niezbędna do aktywacji elementów sterowniczych wynosiła:
+#2-4: WWT163: 0.11-0.15
+#2-4: ZG38: Zaleca się by odległość elementów sterowniczych od elementu sterowniczego pod palcem wskasującym w osi X (dla myszy itp.) wynosiła:
+#2-4: WWT170: 21-30
+#2-4: ZG39: Zaleca się by odległość elementów sterowniczych od elementu sterowniczego pod palcem wskasującym w osi X (dla klawiatur i joystik'ów) wynosiła:
+#2-4: WWT175: 201-300
+#2-4: ZG40: Zaleca się by odległość elementów sterowniczych od elementu sterowniczego pod palcem wskasującym w osi Y (dla myszy itp.)wynosiła:
+#2-4: WWT180: 21-30
+#2-4: ZG41: Zaleca się by odległość elementów sterowniczych od elementu sterowniczego pod palcem wskasującym w osi Y (dla klawiatur i joystik'ów) wynosiła:
+#2-4: WWT185: 201-300
+#2-4: ZG42: Zaleca się by odległość elementów sterowniczych od elementu sterowniczego pod palcem wskasującym w osi Z (dla myszy itp.) wynosiła:
+#2-4: WWT190: 21-30
+#2-4: ZG43: Zaleca się by odległość elementów sterowniczych od elementu sterowniczego pod palcem wskasującym w osi Z (dla klawiatur i joystik'ów) wynosiła:
+#2-4: WWT195: 201-300
+#2-4: ZG44: Zaleca się by masa urządzenia (dla myszy itp.) wynosiła:
+#2-4: WWT198: 101-150
+#2-4: ZG45: Zaleca się by masa urządzenia (dla klawiatur i joystick'ów) wynosiła:
+#2-4: WWT203: 601-900
+#2-4: ZG46: Zaleca się by zastosować interfejs:
+#2-4: WWT209: Kabel USB 2.0
+#2-4: ZG47: Zaleca się by zastosować wielkość przełożenia układu sterowania wg proporcji:
+#2-4: WWT213: 1:1
+#2-4: ZG48: Zaleca się dobór DPI zgodnie z przedziałem:
+#2-4: WWT218: 5501-8000
+#2-4: ZG49: Zaleca się by liczba elementów sterowniczych (myszy itp.) wynosiła:
+#2-4: WWT221: 1-2
+#2-4: ZG50: Zaleca się by liczba elementów sterowniczych (klawiatur) wynosiła:
+#2-4: WWT226: 0-15
+#2-4: ZG51: Zaleca się by forma urządzenia była:
+#2-4: WWT233: Z zaokrągleniami na brzegach
+#2-4: ZG52: Zaleca się by elementy informacyjne elementów sterowniczych były:
+#2-4: WWT236: Niewystępujące
+#2-4: ZG53: Zaleca się by elementy informacyjne obudowy były:
+#2-4: WWT241: Niewystępujące
+#2-4: ZG54: Zaleca się by kolorystyka urządzenia była:
+#2-4: WWT246: Bardzo ciemna, Bardzo jednorodna (jeden kolor)
+#2-4: ZG55: Zaleca się by podświetlenie obudowy było:
+#2-4: WWT251: Brak (0 lx)
+#2-4: ZG56: Zaleca się by podświetlenie elementów sterowniiczych było:
+#2-4: WWT256: Brak (0 lx)
+#2-4: ZG57: Zaleca się by materiały urządzenia były:
+#2-4: WWT263: średnio twarde
+#2-4: ZG58: Zaleca się by materiały antypoślizgowe obudowy były:
+#2-4: WWT268: Materiał o średnim tarciu
+#2-4: ZG59: Zaleca się by materiały antypoślizgowe elementów sterowniczych były:
+#2-4: WWT273: Materiał o średnim tarciu
+#2-4: ZG60: Zaleca się by temperatra uchwytu i elementów sterowniczych urządzenia wynosiła:
+#2-4: WWT278: 21-25 stopni celsjusza
+#3-2: PSZ5: 0-3
+#3-2: WSZ5: 0.4

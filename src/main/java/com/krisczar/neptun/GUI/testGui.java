@@ -1,8 +1,8 @@
 package com.krisczar.neptun.GUI;
 
+import RulesResolver.Connections;
+import RulesResolver.ResolverNew;
 import com.krisczar.neptun.ModelResolver;
-import com.krisczar.neptun.Resolver;
-import com.krisczar.neptun.fcm.XmlCreator;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -22,11 +22,12 @@ public class testGui {
 
 
         JPanel middlePanel = new JPanel ();
-        JButton button1 = new JButton("Get All Users");
-        JButton button2 = new JButton("Resolve User");
-        JButton button3 = new JButton("Copy");
-        final JTextField textField = new JTextField("User_ID");
-        textField.setPreferredSize(new Dimension(100, 30));
+        JButton getAllUsersBtn = new JButton("Get All Users");
+        JButton resolveUserBtn = new JButton("Resolve User");
+        JButton copyBtn = new JButton("Copy");
+        JButton deleteBtn = new JButton("Delete user");
+        final JTextField userIdField = new JTextField("User_ID");
+        userIdField.setPreferredSize(new Dimension(100, 30));
 
 
         middlePanel.setBorder ( new TitledBorder( new EtchedBorder(), "Display Area" ) );
@@ -43,10 +44,11 @@ public class testGui {
 
         //Add Textarea in to middle panel
         middlePanel.add ( scroll );
-        middlePanel.add(button1);
-        middlePanel.add(button2);
-        middlePanel.add(button3);
-        middlePanel.add(textField);
+        middlePanel.add(getAllUsersBtn);
+        middlePanel.add(resolveUserBtn);
+        middlePanel.add(copyBtn);
+        middlePanel.add(userIdField);
+        middlePanel.add(deleteBtn);
 
 
 
@@ -59,53 +61,50 @@ public class testGui {
         frame.setLocationRelativeTo ( null );
         frame.setVisible ( true );
 
-        button1.addActionListener(new ActionListener() {
+        getAllUsersBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                display.setText(Resolver.getUsersIDs());
+                display.setText(Connections.getUsersIDs());
             }
         });
 
-        button2.addActionListener(new ActionListener() {
+        resolveUserBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 //                try {
-                    int userID = Integer.parseInt(textField.getText());
+                    int userID = Integer.parseInt(userIdField.getText());
 //                    System.out.println(userID);
-                    Resolver resolver = new Resolver(userID);
+                    ResolverNew resolver = new ResolverNew(userID);
 
-                    resolver.resolveSection_1();
-                    resolver.resolveSection_2();
-                    resolver.resolveSection_2_2();
-                    resolver.resolveSection_3();
+                    resolver.resolveSection1();
+                    resolver.resolveSection2();
+                    resolver.resolveSection3();
 
+                    resolver.saveToFile();
 
-                    resolvedText = resolver.getAllQAs();
+                    resolvedText = resolver.toString();
                     display.setText(resolvedText);
-
-                    resolver.printWWT();
-
-                    if(resolver.doActiveFCM()){
-                        JOptionPane.showMessageDialog(null, "FCM is going to be used");
-                        XmlCreator xmlCreator = new XmlCreator();
-
-                        xmlCreator.mapCreator();
-                    }
-
-//                }
-//                catch (Exception ex){
-//                    JOptionPane.showMessageDialog(null, "Incorrect userID: " + ex.getMessage());
-//                    ex.printStackTrace();
-//                }
-
-
 
             }
         });
 
-        button3.addActionListener(new ActionListener() {
+        copyBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                StringSelection stringSelection = new StringSelection(resolvedText);
+                StringSelection stringSelection = new StringSelection(display.getText());
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(stringSelection, null);
+            }
+        });
+
+        deleteBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    int userId = Integer.parseInt(userIdField.getText());
+                    Connections.deleteUser(userId);
+                    JOptionPane.showMessageDialog(null, "User " + userId + " deleted");
+                    display.setText(Connections.getUsersIDs());
+                }
+                catch (Exception exc){
+                    JOptionPane.showMessageDialog(null, "User don't exists");
+                }
             }
         });
     }

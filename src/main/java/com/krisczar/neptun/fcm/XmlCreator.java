@@ -1,6 +1,6 @@
 package com.krisczar.neptun.fcm;
 
-import com.krisczar.neptun.Resolver;
+import RulesResolver.ResolverNew;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -208,27 +208,27 @@ public class XmlCreator {
     }
 
     private void loadUserQAs(){
-        LinkedHashSet<String> userQAs = Resolver.getQAs();
-
-        userQAs.forEach(code -> {
-                if(code.matches("^R\\d*") ||
-                        code.matches("^WT\\d*") ||
-                        code.matches("^SZ\\d*") ||
-                        code.matches("^WWT\\d*") ||
-                        code.matches("^ZOI\\d*")) {
-                    uQas.add(code);
-                }
-
-        });
-
-
-
+//        List<String> userQAs = ResolverNew.getQAs();
+//
+//        userQAs.forEach(code -> {
+//                if(code.matches("^R\\d*") ||
+//                        code.matches("^WT\\d*") ||
+//                        code.matches("^SZ\\d*") ||
+//                        code.matches("^WWT\\d*") ||
+//                        code.matches("^ZZOE\\d*")) {
+//                    uQas.add(code);
+//                }
+//
+//        });
+//
+//
+//
     }
 
     private String ifExistsInUQA(String code){
         for(String tmp : uQas){
             if (tmp.equals(code)){
-                return "1.0";
+                return "4.0";
             }
         }
 

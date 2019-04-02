@@ -42,7 +42,10 @@ public class TestResult {
 	}
 
 	public String getAfterAnswers() {
-		return afterAnswers;
+		if (afterAnswers == null)
+			return "";
+		else
+			return afterAnswers;
 	}
 
 	public void setAfterAnswers(String afterAnswers) {
