@@ -1,4 +1,4 @@
-package RulesResolver;
+package com.krisczar.neptun.SupportServices;
 
 public class Computing {
     public static boolean isInRange(double num, double r1, double r2){

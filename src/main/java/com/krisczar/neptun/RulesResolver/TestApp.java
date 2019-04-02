@@ -1,4 +1,4 @@
-package RulesResolver;
+package com.krisczar.neptun.RulesResolver;
 
 
 public class TestApp {

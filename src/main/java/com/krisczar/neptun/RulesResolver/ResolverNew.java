@@ -1,7 +1,9 @@
-package RulesResolver;
+package com.krisczar.neptun.RulesResolver;
 
 import com.google.gson.Gson;
 import com.krisczar.neptun.ModelResolver;
+import com.krisczar.neptun.SupportServices.Computing;
+import com.krisczar.neptun.SupportServices.FilesIO;
 import com.krisczar.neptun.TestResult;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,7 +16,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ResolverNew {
-    List<VariableNew> resolvedVariables;
+    static List<VariableNew> resolvedVariables;
     int userId;
 
     public ResolverNew(int userId){
@@ -93,6 +95,7 @@ public class ResolverNew {
             resolveSums(section, 3);
         }
         catch (Exception e){
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, "User didn't finish test");
         }
 
@@ -330,7 +333,7 @@ public class ResolverNew {
     private void loadAllQA(int userId){
         TestResult testResult; // from user
 
-        final String URL = "https://neptun-fcm.herokuapp.com/admin/api/users/{id}/latest";
+        final String URL = "https://neptun-FCM.herokuapp.com/admin/api/users/{id}/latest";
 
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject(URL, String.class, userId);
@@ -383,6 +386,10 @@ public class ResolverNew {
         String fileName = String.valueOf(LocalDateTime.now());
 
         FilesIO.save(directory, fileName, "txt", toString());
+    }
+
+    public static List<VariableNew> getResolvedVariables() {
+        return resolvedVariables;
     }
 
     @Override

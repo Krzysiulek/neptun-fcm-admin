@@ -1,6 +1,7 @@
-package com.krisczar.neptun.fcm;
+package com.krisczar.neptun.FCM;
 
-import RulesResolver.ResolverNew;
+import com.krisczar.neptun.RulesResolver.ResolverNew;
+import com.krisczar.neptun.RulesResolver.VariableNew;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -13,6 +14,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+
 
 public class XmlCreator {
     private Set<String> uQas = new HashSet<>();
@@ -42,7 +44,7 @@ public class XmlCreator {
 
             // creating skeleton
             mapsElement = doc.createElement("maps");
-            mapsElement.setAttribute("xmlns", "https://neptun-fcm.herokuapp.com/");
+            mapsElement.setAttribute("xmlns", "https://neptun-FCM.herokuapp.com/");
             doc.appendChild(mapsElement);
 
             mapElement = doc.createElement("map");
@@ -63,18 +65,18 @@ public class XmlCreator {
 
     public void mapCreator(){
         loadUserQAs();
-        loadWeights("files/fcm-files/52.txt");
+        loadWeights("files/FCM-files/52.txt");
 
 
         // TODO: LOAD ALL 7 (8) FILES
-        loadVarsFromFile("files/fcm-files/56.txt");
-        loadVarsFromFile("files/fcm-files/56_2.txt");
-        loadVarsFromFile("files/fcm-files/57.txt");
-        loadVarsFromFile("files/fcm-files/58.txt");
-        loadVarsFromFile("files/fcm-files/59.txt");
-        loadVarsFromFile("files/fcm-files/88.txt");
-        loadVarsFromFile("files/fcm-files/89.txt");
-        loadVarsFromFile("files/fcm-files/92.txt");
+        loadVarsFromFile("files/FCM-files/56.txt");
+        loadVarsFromFile("files/FCM-files/56_2.txt");
+        loadVarsFromFile("files/FCM-files/57.txt");
+        loadVarsFromFile("files/FCM-files/58.txt");
+        loadVarsFromFile("files/FCM-files/59.txt");
+        loadVarsFromFile("files/FCM-files/88.txt");
+        loadVarsFromFile("files/FCM-files/89.txt");
+        loadVarsFromFile("files/FCM-files/92.txt");
 
         createConcepts();
         createConnections();
@@ -208,27 +210,25 @@ public class XmlCreator {
     }
 
     private void loadUserQAs(){
-//        List<String> userQAs = ResolverNew.getQAs();
-//
-//        userQAs.forEach(code -> {
-//                if(code.matches("^R\\d*") ||
-//                        code.matches("^WT\\d*") ||
-//                        code.matches("^SZ\\d*") ||
-//                        code.matches("^WWT\\d*") ||
-//                        code.matches("^ZZOE\\d*")) {
-//                    uQas.add(code);
-//                }
-//
-//        });
-//
-//
-//
+        List<VariableNew> variables = ResolverNew.getResolvedVariables();
+
+
+        variables.forEach(variable -> {
+                if(variable.getName().matches("^R\\d*") ||
+                        variable.getName().matches("^WT\\d*") ||
+                        variable.getName().matches("^SZ\\d*") ||
+                        variable.getName().matches("^WWT\\d*") ||
+                        variable.getName().matches("^ZZOE\\d*")) {
+                    uQas.add(variable.getName());
+                }
+
+        });
     }
 
     private String ifExistsInUQA(String code){
         for(String tmp : uQas){
             if (tmp.equals(code)){
-                return "4.0";
+                return "1.0";
             }
         }
 

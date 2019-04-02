@@ -1,4 +1,4 @@
-import RulesResolver.VariableNew;
+import com.krisczar.neptun.RulesResolver.VariableNew;
 import org.junit.Test;
 
 public class VariableChecker {

@@ -1,7 +1,7 @@
 package com.krisczar.neptun.GUI;
 
-import RulesResolver.Connections;
-import RulesResolver.ResolverNew;
+import com.krisczar.neptun.SupportServices.Connections;
+import com.krisczar.neptun.RulesResolver.*;
 import com.krisczar.neptun.ModelResolver;
 
 import javax.swing.*;
@@ -13,7 +13,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class testGui {
+public class ResultActivatorMenu {
     static String resolvedText = "";
 
     public static void main ( String[] args )

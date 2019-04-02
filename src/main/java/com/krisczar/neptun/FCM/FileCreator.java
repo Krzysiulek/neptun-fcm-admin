@@ -1,4 +1,4 @@
-package com.krisczar.neptun.fcm;
+package com.krisczar.neptun.FCM;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class FileCreator {
 
         // pass the path to the file as a parameter
         File file =
-                new File("files/fcm-files/56.txt");
+                new File("files/FCM-files/56.txt");
         Scanner sc = null;
         try {
             sc = new Scanner(file);
@@ -38,7 +38,7 @@ public class FileCreator {
 
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new FileWriter("files/fcm-files/56_2.txt"));
+            writer = new BufferedWriter(new FileWriter("files/FCM-files/56_2.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }

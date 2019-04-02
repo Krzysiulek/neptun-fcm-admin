@@ -1,4 +1,4 @@
-import RulesResolver.ResolverNew;
+import com.krisczar.neptun.RulesResolver.ResolverNew;
 import org.junit.Test;
 
 public class ResolverChecker {

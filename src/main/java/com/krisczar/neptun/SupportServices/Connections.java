@@ -1,4 +1,4 @@
-package RulesResolver;
+package com.krisczar.neptun.SupportServices;
 
 import com.google.gson.Gson;
 import org.springframework.web.client.RestTemplate;
@@ -11,14 +11,14 @@ public class Connections {
 
 
     public static void deleteUser(long id){
-        final String URL = "https://neptun-fcm.herokuapp.com/admin/api/users/{id}";
+        final String URL = "https://neptun-FCM.herokuapp.com/admin/api/users/{id}";
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.delete(URL, id);
     }
 
     public static String getUsersIDs(){
-        final String URL = "https://neptun-fcm.herokuapp.com/admin/api/users/id/all";
+        final String URL = "https://neptun-FCM.herokuapp.com/admin/api/users/id/all";
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject(URL, String.class);
 

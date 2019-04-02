@@ -1,6 +1,7 @@
-package RulesResolver;
+package com.krisczar.neptun.RulesResolver;
 
 import com.krisczar.neptun.ModelResolver;
+import com.krisczar.neptun.SupportServices.Computing;
 
 public class WeirdVariables {
 
