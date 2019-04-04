@@ -43,7 +43,7 @@ public class FilesIO {
 
             while ((sCurrentLine = br.readLine()) != null) {
                 sCurrentLine = sCurrentLine.replaceAll("\uFEFF", "");
-                System.out.println(sCurrentLine);
+//                System.out.println(sCurrentLine);
                 fileLines.add(sCurrentLine);
             }
 

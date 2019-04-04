@@ -22,18 +22,6 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>org.megadix.jfcm</groupId>
-            <artifactId>jfcm-core</artifactId>
-            <version>1.4.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.megadix</groupId>
-            <artifactId>jfcm</artifactId>
-            <version>LATEST</version>
-        </dependency>
-
 
         <dependency>
             <groupId>junit</groupId>

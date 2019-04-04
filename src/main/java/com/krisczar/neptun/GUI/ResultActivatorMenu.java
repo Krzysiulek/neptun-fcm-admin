@@ -54,7 +54,7 @@ public class ResultActivatorMenu {
 
         // My code
         JFrame frame = new JFrame ();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         frame.add ( middlePanel );
         frame.pack ();
@@ -70,19 +70,29 @@ public class ResultActivatorMenu {
         resolveUserBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 //                try {
-                    int userID = Integer.parseInt(userIdField.getText());
+                int userID = Integer.parseInt(userIdField.getText());
 //                    System.out.println(userID);
-                    ResolverNew resolver = new ResolverNew(userID);
+                ResolverNew resolver = new ResolverNew(userID);
 
-                    resolver.resolveSection1();
-                    resolver.resolveSection2();
-                    resolver.resolveSection3();
+                resolver.resolveSection1();
+                resolver.resolveSection2();
+                resolver.resolveSection3();
 
-                    resolver.saveToFile();
+                resolver.saveToFile();
 
-                    resolvedText = resolver.toString();
-                    display.setText(resolvedText);
+                resolvedText = resolver.toString();
+                display.setText(resolvedText);
 
+
+                if (resolver.isFCMneeded()) {
+                    if (JOptionPane.showConfirmDialog(frame,
+                            "FCM is needed. Do you want to run FCM?", "Run FCM?",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+
+                        FCMActivatorMenu fcmActivatorMenu = new FCMActivatorMenu();
+                    }
+                }
             }
         });
 
@@ -98,12 +108,32 @@ public class ResultActivatorMenu {
             public void actionPerformed(ActionEvent e) {
                 try{
                     int userId = Integer.parseInt(userIdField.getText());
-                    Connections.deleteUser(userId);
-                    JOptionPane.showMessageDialog(null, "User " + userId + " deleted");
-                    display.setText(Connections.getUsersIDs());
+
+                    if (JOptionPane.showConfirmDialog(frame,
+                            "Are you sure you want to delete user " + userId + "?", "Close Window?",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+
+                        Connections.deleteUser(userId);
+                        JOptionPane.showMessageDialog(null, "User " + userId + " deleted");
+                        display.setText(Connections.getUsersIDs());
+                    }
+
                 }
                 catch (Exception exc){
                     JOptionPane.showMessageDialog(null, "User don't exists");
+                }
+            }
+        });
+
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(frame,
+                        "Are you sure you want to close this application?", "Close Window?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                    System.exit(0);
                 }
             }
         });

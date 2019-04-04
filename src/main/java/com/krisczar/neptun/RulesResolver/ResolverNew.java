@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ResolverNew {
     static List<VariableNew> resolvedVariables;
-    int userId;
+    static long userId;
 
     public ResolverNew(int userId){
         resolvedVariables = new ArrayList<>();
@@ -132,8 +132,6 @@ public class ResolverNew {
         String ZZOE = WeirdVariables.getZZOE(sum);
 
         addToResolvedVariables(ZZOE, section, 4);
-
-
     }
 
     private void resolveMoreAnswers(String fileName, int section, int stage){
@@ -400,6 +398,17 @@ public class ResolverNew {
         return resolvedVariables;
     }
 
+    public boolean isFCMneeded(){
+        for (VariableNew var :
+             resolvedVariables) {
+            String varModel = ModelResolver.getModel(var.getName());
+            if (varModel.contains("NIESPEŁNIONY WYMAGANY POZIOM")){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         StringBuilder toReturn = new StringBuilder();
@@ -418,5 +427,9 @@ public class ResolverNew {
                     append("\n");
         }
         return toReturn.toString();
+    }
+
+    public static long getUserId() {
+        return userId;
     }
 }
