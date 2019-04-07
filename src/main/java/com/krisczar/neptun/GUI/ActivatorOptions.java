@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
 @Data
 public class ActivatorOptions {
@@ -18,6 +17,15 @@ public class ActivatorOptions {
     private JTextField txtFactor;
     private JTextField txtN;
     private JTextField txtK;
+
+    public static double activatorWidth;
+    public static double activatorZeroValue;
+    public static double activatorAmplitude;
+    public static double activatorMin;
+    public static double activatorMax;
+    public static double activatorFactor;
+    public static double activatorN;
+    public static double activatorK;
 
     public ActivatorOptions() {
         frame = new JFrame("Activator Preferences");
@@ -33,11 +41,11 @@ public class ActivatorOptions {
         frame.setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        FomrExaml();
+        formCreation();
         frame.repaint();
     }
 
-    public void FomrExaml() {
+    public void formCreation() {
         JLabel lblWidth = new JLabel("Width:");
         lblWidth.setBounds(31, 31, 114, 16);
         contentPane.add(lblWidth);
@@ -71,36 +79,42 @@ public class ActivatorOptions {
         contentPane.add(lblK);
 
         txtWidthvalue = new JTextField();
+        txtWidthvalue.setEnabled(false);
         txtWidthvalue.setText("widthValue");
         txtWidthvalue.setBounds(157, 26, 220, 26);
         contentPane.add(txtWidthvalue);
         txtWidthvalue.setColumns(10);
 
         txtZerovalue = new JTextField();
+        txtZerovalue.setEnabled(false);
         txtZerovalue.setText("zeroValue");
         txtZerovalue.setBounds(157, 56, 220, 26);
         contentPane.add(txtZerovalue);
         txtZerovalue.setColumns(10);
 
         txtAmplitude = new JTextField();
+        txtAmplitude.setEnabled(false);
         txtAmplitude.setText("amplitude");
         txtAmplitude.setBounds(157, 84, 220, 26);
         contentPane.add(txtAmplitude);
         txtAmplitude.setColumns(10);
 
         txtMin = new JTextField();
+        txtMin.setEnabled(false);
         txtMin.setText("min");
         txtMin.setBounds(157, 112, 220, 26);
         contentPane.add(txtMin);
         txtMin.setColumns(10);
 
         txtMax = new JTextField();
+        txtMax.setEnabled(false);
         txtMax.setText("max");
         txtMax.setBounds(157, 140, 220, 26);
         contentPane.add(txtMax);
         txtMax.setColumns(10);
 
         txtFactor = new JTextField();
+        txtFactor.setEnabled(false);
         txtFactor.setText("factor");
         txtFactor.setBounds(157, 168, 220, 26);
         contentPane.add(txtFactor);
@@ -108,6 +122,7 @@ public class ActivatorOptions {
 
         txtN = new JTextField();
         txtN.setText("n");
+        txtN.setEnabled(false);
         txtN.setBounds(157, 196, 220, 26);
         contentPane.add(txtN);
         txtN.setColumns(10);
