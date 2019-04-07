@@ -8,7 +8,6 @@ import org.megadix.jfcm.act.*;
 import org.megadix.jfcm.utils.FcmRunner;
 import org.megadix.jfcm.utils.SimpleFcmRunner;
 
-import java.security.Key;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -65,6 +64,8 @@ public class FCMCreator {
                 af = new SignumActivator();
                 break;
         }
+
+
 
         FCMFileLoader fcmFileLoader = new FCMFileLoader(af);
         map = fcmFileLoader.getMap();

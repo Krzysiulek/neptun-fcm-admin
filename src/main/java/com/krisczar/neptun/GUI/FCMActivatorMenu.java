@@ -27,6 +27,7 @@ public class FCMActivatorMenu extends JFrame {
 
     public FCMActivatorMenu() {
         addActivators();
+        addOptions();
 
         display.setText("To jest zupelnie test\n\n" +
                 "Taki test zeby sobie potestowac");
@@ -71,7 +72,6 @@ public class FCMActivatorMenu extends JFrame {
     }
 
     private void closeAppliactionListener(){
-        /*Some piece of code*/
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -112,5 +112,19 @@ public class FCMActivatorMenu extends JFrame {
         catch (Exception e){
             JOptionPane.showMessageDialog(null, "Incorrent maxDelta or maxEpochs format.");
         }
+    }
+
+    private void addOptions(){
+        JLabel lblName;
+        JTextField textField;
+
+        textField = new JTextField();
+        textField.setBounds(128, 28, 86, 20);
+        frame.getContentPane().add(textField);
+        textField.setColumns(10);
+
+        lblName = new JLabel("Activator Options");
+        lblName.setBounds(65, 31, 46, 14);
+        frame.getContentPane().add(lblName);
     }
 }
