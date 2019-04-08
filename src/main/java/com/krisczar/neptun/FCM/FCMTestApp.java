@@ -1,6 +1,8 @@
 package com.krisczar.neptun.FCM;
 
 import com.krisczar.neptun.GUI.ActivatorOptions;
+import org.megadix.jfcm.ConceptActivator;
+import org.megadix.jfcm.act.*;
 
 public class FCMTestApp {
 
@@ -23,7 +25,6 @@ public class FCMTestApp {
 
 //        FCMActivatorMenu fcmActivatorMenu = new FCMActivatorMenu();
 
-        ActivatorOptions activatorOptions = new ActivatorOptions();
-
+        ActivatorOptions activatorOptions = new ActivatorOptions("Linear Activator");
     }
 }

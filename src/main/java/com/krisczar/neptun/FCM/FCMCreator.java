@@ -1,5 +1,7 @@
 package com.krisczar.neptun.FCM;
 
+import com.krisczar.neptun.GUI.ActivatorOptions;
+import com.krisczar.neptun.GUI.ResultActivatorMenu;
 import com.krisczar.neptun.ModelResolver;
 import com.krisczar.neptun.SupportServices.FilesIO;
 import org.megadix.jfcm.CognitiveMap;
@@ -38,6 +40,7 @@ public class FCMCreator {
 
             case "Gaussian Activator":
                 af = new GaussianActivator();
+                ((GaussianActivator) af).setWidth(ActivatorOptions.activatorWidth);
                 break;
 
             case "Hyperbolic Tangent Activator":
@@ -46,22 +49,30 @@ public class FCMCreator {
 
             case "Interval Activator":
                 af = new IntervalActivator();
+                ((IntervalActivator) af).setZeroValue(ActivatorOptions.activatorZeroValue);
+                ((IntervalActivator) af).setAmplitude(ActivatorOptions.activatorAmplitude);
                 break;
 
             case "Linear Activator":
                 af = new LinearActivator();
+                ((LinearActivator) af).setFactor(ActivatorOptions.activatorFactor);
+                ((LinearActivator) af).setMin(ActivatorOptions.activatorMin);
+                ((LinearActivator) af).setMax(ActivatorOptions.activatorMax);
                 break;
 
             case "Nary Activator":
                 af = new NaryActivator();
+                ((NaryActivator) af).setN(ActivatorOptions.activatorN);
                 break;
 
             case "Sigmoid Activator":
                 af = new SigmoidActivator();
+                ((SigmoidActivator) af).setK(ActivatorOptions.activatorK);
                 break;
 
             case "Signum Activator":
                 af = new SignumActivator();
+                ((SignumActivator) af).setZeroValue(ActivatorOptions.activatorZeroValue);
                 break;
         }
 

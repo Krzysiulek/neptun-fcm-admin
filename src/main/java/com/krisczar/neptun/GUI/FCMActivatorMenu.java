@@ -27,7 +27,7 @@ public class FCMActivatorMenu extends JFrame {
 
     public FCMActivatorMenu() {
         addActivators();
-        addOptions();
+        addMenu();
 
         display.setText("To jest zupelnie test\n\n" +
                 "Taki test zeby sobie potestowac");
@@ -94,10 +94,10 @@ public class FCMActivatorMenu extends JFrame {
     }
 
     private void runFCM(){
-        String FCMactivator = comboLanguage.getSelectedItem().toString();
+        String FCMActivator = comboLanguage.getSelectedItem().toString();
         long userID = ResolverNew.getUserId();
 
-        FCMCreator fcmCreator = new FCMCreator(userID, FCMactivator);
+        FCMCreator fcmCreator = new FCMCreator(userID, FCMActivator);
 
         double maxDelta = 0.1;
         int maxEpochs = 1;
@@ -110,21 +110,26 @@ public class FCMActivatorMenu extends JFrame {
             display.setText(fcmCreator.toString());
         }
         catch (Exception e){
-            JOptionPane.showMessageDialog(null, "Incorrent maxDelta or maxEpochs format.");
+            JOptionPane.showMessageDialog(null, "Incorrect maxDelta or maxEpochs format.");
         }
     }
 
-    private void addOptions(){
-        JLabel lblName;
-        JTextField textField;
+    private void addMenu(){
+        frame.setJMenuBar(menuBar);
+        JMenu activatorOptionsMenu = new JMenu("Activator Options");
+        menuBar.add(activatorOptionsMenu);
 
-        textField = new JTextField();
-        textField.setBounds(128, 28, 86, 20);
-        frame.getContentPane().add(textField);
-        textField.setColumns(10);
+        JMenuItem openActivatorOptions = new JMenuItem("Open Activator Options");
+        activatorOptionsMenu.add(openActivatorOptions);
 
-        lblName = new JLabel("Activator Options");
-        lblName.setBounds(65, 31, 46, 14);
-        frame.getContentPane().add(lblName);
+        openActivatorOptions.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                System.out.println(comboLanguage.getSelectedItem().toString());
+                ActivatorOptions activatorOptions = new ActivatorOptions(comboLanguage.getSelectedItem().toString());
+            }
+        });
     }
+
 }
