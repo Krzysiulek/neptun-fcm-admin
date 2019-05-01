@@ -88,6 +88,7 @@ public class ResolverNew {
         resolveMoreAnswers("files/blok_3/47.txt", section, 2);
         resolveOneAnswer("files/blok_3/63.txt", section, 2);
         resolveOneAnswer("files/blok_3/49.txt", section, 2);
+        resolveMoreAnswers("files/blok_3/131.txt", section, 2);
 
         // stage 3
         resolveMoreAnswers("files/blok_3/51.txt", section, 3);

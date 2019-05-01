@@ -85,6 +85,7 @@ public class VariableNew {
         final String pattern47 = "^SZ\\d+=ISZ\\d+$";
         final String pattern63 = "^ODS\\d+=WODS\\d+$";
         final String pattern49 = "^ODS\\d+=ISZ\\d+$";
+        final String pattern131 = "^((PQ\\d+|Q\\d+):(PA\\d+|A\\d+)|(CST|CPD|CMB))=OP\\d+$";
 
         // #3 s3
         final String pattern51 = "^(ISZ\\d+\\+)*(ISZ\\d+)=BISZ$";
@@ -203,6 +204,9 @@ public class VariableNew {
         }
 
         else if (line.matches(pattern54)){
+            return checkPatternQA(resolvedVars);
+        }
+        else if (line.matches(pattern131)){
             return checkPatternQA(resolvedVars);
         }
 

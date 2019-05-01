@@ -7,9 +7,12 @@ import com.krisczar.neptun.SupportServices.FilesIO;
 import org.megadix.jfcm.CognitiveMap;
 import org.megadix.jfcm.ConceptActivator;
 import org.megadix.jfcm.act.*;
+import org.megadix.jfcm.utils.FcmIO;
 import org.megadix.jfcm.utils.FcmRunner;
 import org.megadix.jfcm.utils.SimpleFcmRunner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -98,6 +101,7 @@ public class FCMCreator {
         runner.run();
         saveRaw();
         saveProcessed();
+        saveMapAsXML();
     }
 
     public void saveRaw(){
@@ -116,6 +120,22 @@ public class FCMCreator {
     public void saveProcessed(){
         FilesIO.save("results/fcm/" + userId + "/processed", String.valueOf(LocalDateTime.now()), "txt", toString());
     }
+
+    public void saveMapAsXML(){
+        String directory = "results/fcm/" + userId + "/maps/";
+        String fileName = String.valueOf(LocalDateTime.now());
+        String filePath = directory + fileName + ".xml";
+
+        FilesIO.makeDir(directory);
+
+        try {
+            FcmIO.saveAsXml(map, filePath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     @Override
     public String toString() {

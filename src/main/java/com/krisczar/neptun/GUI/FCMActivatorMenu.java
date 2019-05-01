@@ -29,8 +29,9 @@ public class FCMActivatorMenu extends JFrame {
         addActivators();
         addMenu();
 
-        display.setText("To jest zupelnie test\n\n" +
-                "Taki test zeby sobie potestowac");
+        display.setText("It's Fuzzy Cognitive Map display Area.\n" +
+                "You can modify all the parameters to achieve best results.\n" +
+                "Good luck!");
 
         display.setEditable ( false ); // set textArea non-editable
         JScrollPane scroll = new JScrollPane ( display );

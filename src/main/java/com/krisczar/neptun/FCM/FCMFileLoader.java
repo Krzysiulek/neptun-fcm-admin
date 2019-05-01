@@ -11,17 +11,16 @@ import org.megadix.jfcm.conn.WeightedConnection;
 import java.util.*;
 
 public class FCMFileLoader {
-    // TODO: LOAD ALL WAGS
-    // TODO: LOAD ALL CONCEPTS
-    // TODO: LOAD ALL CONNECTIONS
     private CognitiveMap map = new CognitiveMap("FCM");
     private Map<String, Double> wagsMap = new HashMap<>();
     private Set<String> conceptsSet = new HashSet<>();
+    private Set<String> line = new HashSet<>();
 
     private List<Concept> concepts = new ArrayList<>();
 
     public FCMFileLoader(ConceptActivator af) {
         // here map is creating
+        loadAllFiles();
         loadWags();
         loadConcepts(af);
         loadConnections();
@@ -42,9 +41,7 @@ public class FCMFileLoader {
         });
     }
 
-    private void loadConcepts(ConceptActivator af){
-        Set<String> line = new HashSet<>();
-
+    private void loadAllFiles(){
         line.addAll(FilesIO.loadAllLines("files/fcm-files/56.txt"));
         line.addAll(FilesIO.loadAllLines("files/fcm-files/56_2.txt"));
         line.addAll(FilesIO.loadAllLines("files/fcm-files/57.txt"));
@@ -53,8 +50,11 @@ public class FCMFileLoader {
         line.addAll(FilesIO.loadAllLines("files/fcm-files/88.txt"));
         line.addAll(FilesIO.loadAllLines("files/fcm-files/89.txt"));
         line.addAll(FilesIO.loadAllLines("files/fcm-files/92.txt"));
+        line.addAll(FilesIO.loadAllLines("files/fcm-files/130.txt"));
+        line.addAll(FilesIO.loadAllLines("files/fcm-files/132.txt"));
+    }
 
-
+    private void loadConcepts(ConceptActivator af){
         line.forEach(conceptLine -> createConceptsByLine(conceptLine));
 
         conceptsSet.forEach(con -> finalCreationOfConcept(con, af));
@@ -92,17 +92,6 @@ public class FCMFileLoader {
     }
 
     private void loadConnections(){
-        Set<String> line = new HashSet<>();
-
-        line.addAll(FilesIO.loadAllLines("files/fcm-files/56.txt"));
-        line.addAll(FilesIO.loadAllLines("files/fcm-files/56_2.txt"));
-        line.addAll(FilesIO.loadAllLines("files/fcm-files/57.txt"));
-        line.addAll(FilesIO.loadAllLines("files/fcm-files/58.txt"));
-        line.addAll(FilesIO.loadAllLines("files/fcm-files/59.txt"));
-        line.addAll(FilesIO.loadAllLines("files/fcm-files/88.txt"));
-        line.addAll(FilesIO.loadAllLines("files/fcm-files/89.txt"));
-        line.addAll(FilesIO.loadAllLines("files/fcm-files/92.txt"));
-
         for (String lineFromFile : line) {
             createConnection(lineFromFile);
         }
@@ -124,9 +113,6 @@ public class FCMFileLoader {
 //            System.out.println("Creating connection for: " + concept1 + " -> " + concept2 + " " + " " + extractedTmp2[1]);
             weight = 0.0;
         }
-
-
-
 
 
         String connectionName = concept1 + " -> " + concept2;

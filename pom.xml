@@ -93,6 +93,16 @@
             <artifactId>jfcm</artifactId>
             <version>v1.4.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.megadix.jfcm</groupId>
+            <artifactId>jfcm-core</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.megadix.jfcm</groupId>
+            <artifactId>jfcm-core</artifactId>
+            <version>1.4.2</version>
+        </dependency>
 
 
     </dependencies>
