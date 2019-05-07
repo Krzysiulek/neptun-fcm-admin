@@ -112,6 +112,7 @@ public class FCMActivatorMenu extends JFrame {
         }
         catch (Exception e){
             JOptionPane.showMessageDialog(null, "Incorrect maxDelta or maxEpochs format.");
+            e.printStackTrace();
         }
     }
 

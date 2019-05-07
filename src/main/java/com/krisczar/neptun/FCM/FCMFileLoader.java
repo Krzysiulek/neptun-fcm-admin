@@ -18,6 +18,10 @@ public class FCMFileLoader {
 
     private List<Concept> concepts = new ArrayList<>();
 
+
+    Set<String> OPs = new HashSet<>();
+
+
     public FCMFileLoader(ConceptActivator af) {
         // here map is creating
         loadAllFiles();
@@ -50,8 +54,33 @@ public class FCMFileLoader {
         line.addAll(FilesIO.loadAllLines("files/fcm-files/88.txt"));
         line.addAll(FilesIO.loadAllLines("files/fcm-files/89.txt"));
         line.addAll(FilesIO.loadAllLines("files/fcm-files/92.txt"));
-        line.addAll(FilesIO.loadAllLines("files/fcm-files/130.txt"));
-        line.addAll(FilesIO.loadAllLines("files/fcm-files/132.txt"));
+//        line.addAll(FilesIO.loadAllLines("files/fcm-files/130.txt"));
+//        line.addAll(FilesIO.loadAllLines("files/fcm-files/132.txt"));
+        loadAdditionalLines();
+    }
+
+    private void loadAdditionalLines() {
+        // loading all OPs
+        ResolverNew.getResolvedVariables().forEach(variableNew -> {
+            if(variableNew.getName().matches("OP\\d+")){
+                OPs.add(variableNew.getName());
+                System.out.println(variableNew.getName());
+            }
+
+        });
+
+        Set<String> WTs = new HashSet<>();
+        Set<String> all130Lines = new HashSet<>();
+
+        all130Lines.addAll(FilesIO.loadAllLines("files/blok_3/130.txt"));
+
+        System.out.println("LINE DUPA");
+        all130Lines.forEach(line -> System.out.println(line));
+
+        System.out.println("LINE DUPA");
+        System.out.println("LINE DUPA");
+        System.out.println("LINE DUPA");
+
     }
 
     private void loadConcepts(ConceptActivator af){
@@ -110,16 +139,51 @@ public class FCMFileLoader {
         }
         catch (NullPointerException e){
             e.printStackTrace();
-//            System.out.println("Creating connection for: " + concept1 + " -> " + concept2 + " " + " " + extractedTmp2[1]);
             weight = 0.0;
         }
 
+//        System.out.print(new StringBuilder(concept1)
+//                .append("-").append(weight)
+//                .append("->")
+//                .append(concept2).append("\t"));
+        if( !(weight==0.0) )
+            weight += getAdditionalWeight(concept1, concept2); // its adding additional value
+
+//        System.out.println(new StringBuilder(concept1)
+//                .append("-").append(weight)
+//                .append("->")
+//                .append(concept2));
 
         String connectionName = concept1 + " -> " + concept2;
         FcmConnection conn_1 = new WeightedConnection(connectionName, null, weight);
 
-
         map.addConnection(conn_1);
         map.connect(concept1, connectionName, concept2);
+    }
+
+    private double getAdditionalWeight(String conceptWhileCreating1, String conceptWhileCreating2){
+        if (conceptWhileCreating1.matches("WT\\d+")){
+            if (isCodeInConcepts(conceptWhileCreating1)){
+//                System.out.println("Adding " + conceptWhileCreating1 + " -> " + conceptWhileCreating2);
+                return 0.5;
+            }
+        }
+
+        if (conceptWhileCreating2.matches("WT\\d+")){
+            if (isCodeInConcepts(conceptWhileCreating2)){
+//                System.out.println("Adding " + conceptWhileCreating1 + " -> " + conceptWhileCreating2);
+                return 0.5;
+            }
+        }
+
+        return 0.0;
+    }
+
+    private boolean isCodeInConcepts(String code){
+        for(String concept : conceptsSet){
+            if (code.equals(concept))
+                return true;
+        }
+        return false;
     }
 }

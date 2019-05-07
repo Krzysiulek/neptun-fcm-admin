@@ -4,8 +4,7 @@ import com.krisczar.neptun.GUI.ActivatorOptions;
 import com.krisczar.neptun.GUI.ResultActivatorMenu;
 import com.krisczar.neptun.ModelResolver;
 import com.krisczar.neptun.SupportServices.FilesIO;
-import org.megadix.jfcm.CognitiveMap;
-import org.megadix.jfcm.ConceptActivator;
+import org.megadix.jfcm.*;
 import org.megadix.jfcm.act.*;
 import org.megadix.jfcm.utils.FcmIO;
 import org.megadix.jfcm.utils.FcmRunner;
@@ -109,9 +108,7 @@ public class FCMCreator {
         sum.append(getParams());
 
         map.getConcepts().forEach((s, concept) ->{
-            String con = concept.getName() + "\t\tI:" + concept.getInput() + "\t\tO:" + concept.getOutput();
-            System.out.println(con);
-            sum.append(con + "\n");
+            sum.append(concept).append("\n");
         });
 
         FilesIO.save("results/fcm/" + userId + "/raw", String.valueOf(LocalDateTime.now()), "txt", sum.toString());
@@ -134,8 +131,6 @@ public class FCMCreator {
             e.printStackTrace();
         }
     }
-
-
 
     @Override
     public String toString() {
@@ -198,4 +193,5 @@ public class FCMCreator {
 
         return result.toString();
     }
+
 }
