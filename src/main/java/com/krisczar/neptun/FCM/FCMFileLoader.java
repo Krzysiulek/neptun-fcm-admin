@@ -17,9 +17,11 @@ public class FCMFileLoader {
     private Set<String> line = new HashSet<>();
 
     private List<Concept> concepts = new ArrayList<>();
+    static int counter = 0;
 
 
     Set<String> OPs = new HashSet<>();
+    Set<String> WTs = new HashSet<>();
 
 
     public FCMFileLoader(ConceptActivator af) {
@@ -54,9 +56,12 @@ public class FCMFileLoader {
         line.addAll(FilesIO.loadAllLines("files/fcm-files/88.txt"));
         line.addAll(FilesIO.loadAllLines("files/fcm-files/89.txt"));
         line.addAll(FilesIO.loadAllLines("files/fcm-files/92.txt"));
+
+        // te pliki nalezy odkomentowac w celu przywrocenia polaczen OP:WT w mapie
 //        line.addAll(FilesIO.loadAllLines("files/fcm-files/130.txt"));
 //        line.addAll(FilesIO.loadAllLines("files/fcm-files/132.txt"));
-        loadAdditionalLines();
+
+//        loadAdditionalLines();
     }
 
     private void loadAdditionalLines() {
@@ -64,23 +69,28 @@ public class FCMFileLoader {
         ResolverNew.getResolvedVariables().forEach(variableNew -> {
             if(variableNew.getName().matches("OP\\d+")){
                 OPs.add(variableNew.getName());
-                System.out.println(variableNew.getName());
             }
+        });
+
+        Set<String> all130Lines = new HashSet<>();
+        all130Lines.addAll(FilesIO.loadAllLines("files/fcm-files/130.txt"));
+
+        // loading all WTs
+        all130Lines.forEach(line -> {
+            String[] extractedTmp1 = line.split(":");
+            String[] extractedTmp2 = extractedTmp1[1].split("=");
+
+            String conceptOP = extractedTmp1[0];
+            String conceptWT = extractedTmp2[0];
+
+            if(isCodeInOPs(conceptOP)){
+                WTs.add(conceptWT);
+            }
+
 
         });
 
-        Set<String> WTs = new HashSet<>();
-        Set<String> all130Lines = new HashSet<>();
-
-        all130Lines.addAll(FilesIO.loadAllLines("files/blok_3/130.txt"));
-
-        System.out.println("LINE DUPA");
-        all130Lines.forEach(line -> System.out.println(line));
-
-        System.out.println("LINE DUPA");
-        System.out.println("LINE DUPA");
-        System.out.println("LINE DUPA");
-
+//        WTs.size();
     }
 
     private void loadConcepts(ConceptActivator af){
@@ -124,6 +134,8 @@ public class FCMFileLoader {
         for (String lineFromFile : line) {
             createConnection(lineFromFile);
         }
+
+        System.out.println("Counter: " + counter);
     }
 
     private void createConnection(String lineFromFile){
@@ -161,20 +173,25 @@ public class FCMFileLoader {
         map.connect(concept1, connectionName, concept2);
     }
 
+    //  zakomentowana sekcja jest dlatego, zeby do zadnych polaczen nie bylo nic dodawane
+    // w celu przywrocenia funkcjonalnosci dotyczacej dodawania wag do polaczen, wystarczy odkomentowac
+    // i ewentualnie zmienic nazwy plikow ktore maja miec na to wplyw
     private double getAdditionalWeight(String conceptWhileCreating1, String conceptWhileCreating2){
-        if (conceptWhileCreating1.matches("WT\\d+")){
-            if (isCodeInConcepts(conceptWhileCreating1)){
+//        if (conceptWhileCreating1.matches("WT\\d+")){
+//            if (isCodeInWTs(conceptWhileCreating1)){
 //                System.out.println("Adding " + conceptWhileCreating1 + " -> " + conceptWhileCreating2);
-                return 0.5;
-            }
-        }
-
-        if (conceptWhileCreating2.matches("WT\\d+")){
-            if (isCodeInConcepts(conceptWhileCreating2)){
+//                counter++;
+//                return 0.5;
+//            }
+//        }
+//
+//        else if (conceptWhileCreating2.matches("WT\\d+")){
+//            if (isCodeInWTs(conceptWhileCreating2)){
 //                System.out.println("Adding " + conceptWhileCreating1 + " -> " + conceptWhileCreating2);
-                return 0.5;
-            }
-        }
+//                counter++;
+//                return 0.5;
+//            }
+//        }
 
         return 0.0;
     }
@@ -182,6 +199,22 @@ public class FCMFileLoader {
     private boolean isCodeInConcepts(String code){
         for(String concept : conceptsSet){
             if (code.equals(concept))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean isCodeInWTs(String code){
+        for(String wt : WTs){
+            if(wt.equals(code))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean isCodeInOPs(String code){
+        for(String op : OPs){
+            if(op.equals(code))
                 return true;
         }
         return false;

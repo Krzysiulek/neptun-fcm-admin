@@ -100,7 +100,6 @@ public class ResolverNew {
             JOptionPane.showMessageDialog(null, "User didn't finish test");
         }
 
-
         // stage 5
         resolveOneAnswer("files/blok_3/54.txt", section, 5);
     }
