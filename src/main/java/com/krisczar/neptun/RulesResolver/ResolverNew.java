@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -218,7 +219,7 @@ public class ResolverNew {
 //            System.out.println("\nPIERWSZA LINIA");
         }
         else{
-            // TODO: obsługa tego głupiego gówna
+            // TODO: obsĹ‚uga tego gĹ‚upiego gĂłwna
 //            System.out.println("\nNIEEEEEEE PIERWSZA LINIA");
 
             List<String> firstLineNotResVariables = Arrays.asList(varsFromFile.get(0).right.split(";"));
@@ -354,7 +355,7 @@ public class ResolverNew {
     }
 
     private void convertUserQAs(String QAcodes){
-        // przerzucenie JSONA do wewnętrznej struktury
+        // przerzucenie JSONA do wewnÄ™trznej struktury
         String[] tmpTab = QAcodes.split("\\)\\(");
 
         for(String code : tmpTab){
@@ -389,7 +390,7 @@ public class ResolverNew {
 
     public void saveToFile(){
         String directory = "results/rules/" + userId + "/";
-        String fileName = String.valueOf(LocalDateTime.now());
+        String fileName = String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY_MM_dd_hh_mm")));
 
         FilesIO.save(directory, fileName, "txt", toString());
     }
@@ -402,7 +403,7 @@ public class ResolverNew {
         for (VariableNew var :
              resolvedVariables) {
             String varModel = ModelResolver.getModel(var.getName());
-            if (varModel.contains("NIESPEŁNIONY WYMAGANY POZIOM")){
+            if (varModel.contains("NIESPEĹ�NIONY WYMAGANY POZIOM")){
                 return true;
             }
         }

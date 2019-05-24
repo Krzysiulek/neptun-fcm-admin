@@ -45,6 +45,7 @@ public class WeirdVariables {
 
 
     public static double getValueOfCode(String code){
+    	try {
         String tmp = ModelResolver.getModel(code);
 
         System.out.println("################################################");
@@ -53,6 +54,10 @@ public class WeirdVariables {
         System.out.println("");
 
         return Double.parseDouble(tmp);
+    	}
+    	catch (Exception ignore) {}
+    	
+    	return 0.0;
     }
 
 }

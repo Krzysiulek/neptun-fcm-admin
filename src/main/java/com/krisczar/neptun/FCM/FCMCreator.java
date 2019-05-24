@@ -13,6 +13,7 @@ import org.megadix.jfcm.utils.SimpleFcmRunner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class FCMCreator {
@@ -111,16 +112,16 @@ public class FCMCreator {
             sum.append(concept).append("\n");
         });
 
-        FilesIO.save("results/fcm/" + userId + "/raw", String.valueOf(LocalDateTime.now()), "txt", sum.toString());
+        FilesIO.save("results/fcm/" + userId + "/raw", String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY_MM_dd_hh_mm"))), "txt", sum.toString());
     }
 
     public void saveProcessed(){
-        FilesIO.save("results/fcm/" + userId + "/processed", String.valueOf(LocalDateTime.now()), "txt", toString());
+        FilesIO.save("results/fcm/" + userId + "/processed", String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY_MM_dd_hh_mm"))), "txt", toString());
     }
 
     public void saveMapAsXML(){
         String directory = "results/fcm/" + userId + "/maps/";
-        String fileName = String.valueOf(LocalDateTime.now());
+        String fileName = String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY_MM_dd_hh_mm")));
         String filePath = directory + fileName + ".xml";
 
         FilesIO.makeDir(directory);

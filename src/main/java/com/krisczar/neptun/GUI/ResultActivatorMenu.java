@@ -83,8 +83,9 @@ public class ResultActivatorMenu {
                 resolvedText = resolver.toString();
                 display.setText(resolvedText);
 
-
-                if (resolver.isFCMneeded()) {
+ 
+              //if (resolver.isFCMneeded())
+                if (true) { 
                     if (JOptionPane.showConfirmDialog(frame,
                             "FCM is needed. Do you want to run FCM?", "Run FCM?",
                             JOptionPane.YES_NO_OPTION,
