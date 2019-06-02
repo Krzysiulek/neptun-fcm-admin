@@ -1,16 +1,15 @@
 package com.krisczar.neptun.FCM;
 
 import com.krisczar.neptun.GUI.ActivatorOptions;
-import com.krisczar.neptun.GUI.ResultActivatorMenu;
 import com.krisczar.neptun.ModelResolver;
 import com.krisczar.neptun.SupportServices.FilesIO;
+import com.krisczar.neptun.TOs.FCMPreferences;
 import org.megadix.jfcm.*;
 import org.megadix.jfcm.act.*;
 import org.megadix.jfcm.utils.FcmIO;
 import org.megadix.jfcm.utils.FcmRunner;
 import org.megadix.jfcm.utils.SimpleFcmRunner;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,13 +23,6 @@ public class FCMCreator {
     String activator;
     double maxDelta;
     int maxEpochs;
-
-
-    public FCMCreator() {
-        ConceptActivator af = new SigmoidActivator();
-        FCMFileLoader fcmFileLoader = new FCMFileLoader(af);
-        map = fcmFileLoader.getMap();
-    }
 
     public FCMCreator(long userId, String activator) {
         ConceptActivator af = new GaussianActivator();
@@ -79,18 +71,9 @@ public class FCMCreator {
                 break;
         }
 
-
-
         FCMFileLoader fcmFileLoader = new FCMFileLoader(af);
         map = fcmFileLoader.getMap();
         this.userId = userId;
-    }
-
-    public void run(){
-        runner = new SimpleFcmRunner(map, 0.1, 2);
-        runner.run();
-        saveRaw();
-        saveProcessed();
     }
 
     public void run(double maxDelta, int maxEpochs){
@@ -112,15 +95,33 @@ public class FCMCreator {
             sum.append(concept).append("\n");
         });
 
-        FilesIO.save("results/fcm/" + userId + "/raw", String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY_MM_dd_hh_mm"))), "txt", sum.toString());
+        if(!FCMPreferences.isExternalFilesLoading) {
+            FilesIO.save("results/fcm/" + userId + "/raw", String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY_MM_dd_hh_mm"))), "txt", sum.toString());
+        }
+        else {
+            FilesIO.save("results/fcm/" + userId + "/raw/external_fcm_files", String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY_MM_dd_hh_mm"))), "txt", sum.toString());
+
+        }
     }
 
     public void saveProcessed(){
-        FilesIO.save("results/fcm/" + userId + "/processed", String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY_MM_dd_hh_mm"))), "txt", toString());
+        if(!FCMPreferences.isExternalFilesLoading) {
+            FilesIO.save("results/fcm/" + userId + "/processed", String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY_MM_dd_hh_mm"))), "txt", toString());
+        }
+        else {
+            FilesIO.save("results/fcm/" + userId + "/processed/external_fcm_files", String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY_MM_dd_hh_mm"))), "txt", toString());
+        }
     }
 
     public void saveMapAsXML(){
-        String directory = "results/fcm/" + userId + "/maps/";
+        String directory;
+        if(!FCMPreferences.isExternalFilesLoading) {
+            directory = "results/fcm/" + userId + "/maps/";
+        }
+        else {
+            directory = "results/fcm/" + userId + "/maps/external_fcm_files/";
+        }
+
         String fileName = String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY_MM_dd_hh_mm")));
         String filePath = directory + fileName + ".xml";
 
@@ -159,7 +160,14 @@ public class FCMCreator {
             int end = i * 5;
             int start = end - 4;
 
-            String WWT = getMaxWWTOutputFromRange(start, end);
+            String WWT;
+            try{
+                WWT = getMaxWWTOutputFromRange(start, end);
+            }catch (Exception e){
+                WWT = "Nie dopasowano";
+            }
+
+
             result.append(WWT).append(": ").append(ModelResolver.getModel(WWT)).append("\n\n");
         }
 
@@ -172,7 +180,6 @@ public class FCMCreator {
 
         for (int i = start; i <= end; i++){
             String WWTName = "WWT"+i;
-//            System.out.println(WWTName);
             String name = map.getConcept(WWTName).getName();
             double output = map.getConcept(WWTName).getOutput();
             WWTs.put(name, output);
@@ -191,8 +198,6 @@ public class FCMCreator {
         result.append("Max Delta: ").append(maxDelta).append("\n");
         result.append("Max Epochs: ").append(maxEpochs).append("\n\n\n");
 
-
         return result.toString();
     }
-
 }

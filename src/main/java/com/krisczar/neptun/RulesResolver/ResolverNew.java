@@ -191,19 +191,15 @@ public class ResolverNew {
         List<VariableNew> varsFromFile = null;
         List<VariableNew> resolvedVarsFromFile = new ArrayList<>();
 
-
         try {
             varsFromFile = loadRulesFile(fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
         int counter = 0;
-
         for (VariableNew var : varsFromFile){
             if(var.checkMe(resolvedVariables)){
-//                System.out.println(var.getName());
                 resolvedVarsFromFile.add(var);
 
                 if (counter == 0){
@@ -213,15 +209,11 @@ public class ResolverNew {
             counter++;
         }
 
-
         if (counter == 0){
             resolvedVarsFromFile.forEach(var -> addToResolvedVariables(var.getName(), section, stage));
-//            System.out.println("\nPIERWSZA LINIA");
         }
-        else{
-            // TODO: obsĹ‚uga tego gĹ‚upiego gĂłwna
-//            System.out.println("\nNIEEEEEEE PIERWSZA LINIA");
 
+        else{
             List<String> firstLineNotResVariables = Arrays.asList(varsFromFile.get(0).right.split(";"));
             System.out.println(firstLineNotResVariables.toString());
 
@@ -234,7 +226,6 @@ public class ResolverNew {
             firstLineNotResVariables.forEach(var -> addToResolvedVariables(var, section, stage));
             differences.forEach(diff -> addToResolvedVariables(diff, section, stage));
         }
-
     }
 
     private void addToResolvedVariables(String var, int section, int stage){
@@ -265,8 +256,6 @@ public class ResolverNew {
 
                     int codeNumber = Integer.parseInt(code.replace("WWT", ""));;
 
-
-                    // TODO: CJHECK THIS
                     if (codeNumber > varNumber + 1 && codeNumber <= varNumber + 5){
                         System.out.println("Var numb: " + varNumber);
                         System.out.println("Code numb: " + codeNumber);
@@ -318,8 +307,7 @@ public class ResolverNew {
 
     private List<VariableNew> loadRulesFile(String fileName) throws IOException {
         List<VariableNew> varsFromFile = new ArrayList<>();
-        BufferedReader file = null;
-
+        BufferedReader file;
 
         file = new BufferedReader(new FileReader(fileName));
 
@@ -349,13 +337,11 @@ public class ResolverNew {
         testResult = g.fromJson(response, TestResult.class);
 
         String resultsStr = testResult.getBeforeAnswers() + testResult.getAfterAnswers();
-//        System.out.println(resultsStr);
 
         convertUserQAs(resultsStr);
     }
 
     private void convertUserQAs(String QAcodes){
-        // przerzucenie JSONA do wewnÄ™trznej struktury
         String[] tmpTab = QAcodes.split("\\)\\(");
 
         for(String code : tmpTab){
@@ -374,7 +360,7 @@ public class ResolverNew {
             for(String ansCode : answers){
                 ansCode = ansCode.replaceAll(" ", "");
                 String properCode = questionCode + ":" + ansCode;
-//                System.out.println(properCode);
+
                 resolvedVariables.add(new VariableNew(properCode, true, 0, 0));
             }
         }
@@ -403,7 +389,7 @@ public class ResolverNew {
         for (VariableNew var :
              resolvedVariables) {
             String varModel = ModelResolver.getModel(var.getName());
-            if (varModel.contains("NIESPEĹ�NIONY WYMAGANY POZIOM")){
+            if (varModel.contains("NIESPEĹ�NIONY WYMAGANY POZIOM") || varModel.contains("NIESPEŁNIONY WYMAGANY POZIOM ERGONOMICZNOŚCI")){
                 return true;
             }
         }

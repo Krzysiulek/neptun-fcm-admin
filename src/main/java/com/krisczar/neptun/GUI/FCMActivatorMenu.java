@@ -12,6 +12,7 @@ public class FCMActivatorMenu extends JFrame {
     // create an empty combo box with items of type String
     JPanel middlePanel = new JPanel ();
     private JMenuBar menuBar = new JMenuBar(); // Window menu bar
+    JMenu preferences = new JMenu("Preferences");
 
     JComboBox<String> comboLanguage = new JComboBox<String>();
     JButton startFCMBtn = new JButton("Start FCM");
@@ -27,7 +28,12 @@ public class FCMActivatorMenu extends JFrame {
 
     public FCMActivatorMenu() {
         addActivators();
-        addMenu();
+
+        frame.setJMenuBar(menuBar);
+        menuBar.add(preferences);
+
+        addMenuActivators();
+        addMenuFileLoaders();
 
         display.setText("It's Fuzzy Cognitive Map display Area.\n" +
                 "You can modify all the parameters to achieve best results.\n" +
@@ -47,6 +53,7 @@ public class FCMActivatorMenu extends JFrame {
         middlePanel.add(maxEpochsLabel);
         middlePanel.add(maxEpochsTextField);
         middlePanel.add(startFCMBtn);
+
         frame.add(middlePanel);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.pack ();
@@ -116,22 +123,30 @@ public class FCMActivatorMenu extends JFrame {
         }
     }
 
-    private void addMenu(){
-        frame.setJMenuBar(menuBar);
-        JMenu activatorOptionsMenu = new JMenu("Activator Options");
-        menuBar.add(activatorOptionsMenu);
-
-        JMenuItem openActivatorOptions = new JMenuItem("Open Activator Options");
-        activatorOptionsMenu.add(openActivatorOptions);
+    private void addMenuActivators(){
+        JMenuItem openActivatorOptions = new JMenuItem("Activators");
+        preferences.add(openActivatorOptions);
 
         openActivatorOptions.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
                 System.out.println(comboLanguage.getSelectedItem().toString());
-                ActivatorOptions activatorOptions = new ActivatorOptions(comboLanguage.getSelectedItem().toString());
+                new ActivatorOptions(comboLanguage.getSelectedItem().toString());
             }
         });
     }
 
+    private void addMenuFileLoaders(){
+        JMenuItem openExternalFilesOptions = new JMenuItem("External files");
+        preferences.add(openExternalFilesOptions);
+
+        openExternalFilesOptions.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                new ExternalFilesLoaderOptions();
+            }
+        });
+    }
 }

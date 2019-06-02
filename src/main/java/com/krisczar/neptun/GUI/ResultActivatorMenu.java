@@ -20,7 +20,6 @@ public class ResultActivatorMenu {
     {
         ModelResolver.loadAllModels();
 
-
         JPanel middlePanel = new JPanel ();
         JButton getAllUsersBtn = new JButton("Get All Users");
         JButton resolveUserBtn = new JButton("Resolve User");
@@ -29,11 +28,9 @@ public class ResultActivatorMenu {
         final JTextField userIdField = new JTextField("User_ID");
         userIdField.setPreferredSize(new Dimension(100, 30));
 
-
         middlePanel.setBorder ( new TitledBorder( new EtchedBorder(), "Display Area" ) );
 
         // create the middle panel components
-
         final JTextArea display = new JTextArea ( 35, 58 );
         display.setText("To get informations about registred users press 'Get All Users' button\n\n" +
                 "To resolve user answers type user ID into 'User_ID' field and press 'Resolve User' button");
@@ -49,8 +46,6 @@ public class ResultActivatorMenu {
         middlePanel.add(copyBtn);
         middlePanel.add(userIdField);
         middlePanel.add(deleteBtn);
-
-
 
         // My code
         JFrame frame = new JFrame ();
@@ -69,9 +64,7 @@ public class ResultActivatorMenu {
 
         resolveUserBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-//                try {
                 int userID = Integer.parseInt(userIdField.getText());
-//                    System.out.println(userID);
                 ResolverNew resolver = new ResolverNew(userID);
 
                 resolver.resolveSection1();
@@ -83,9 +76,7 @@ public class ResultActivatorMenu {
                 resolvedText = resolver.toString();
                 display.setText(resolvedText);
 
- 
-              //if (resolver.isFCMneeded())
-                if (true) { 
+                if (resolver.isFCMneeded()) {
                     if (JOptionPane.showConfirmDialog(frame,
                             "FCM is needed. Do you want to run FCM?", "Run FCM?",
                             JOptionPane.YES_NO_OPTION,

@@ -2,6 +2,7 @@ package com.krisczar.neptun.SupportServices;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FilesIO {
@@ -43,7 +44,6 @@ public class FilesIO {
 
             while ((sCurrentLine = br.readLine()) != null) {
                 sCurrentLine = sCurrentLine.replaceAll("\uFEFF", "");
-//                System.out.println(sCurrentLine);
                 fileLines.add(sCurrentLine);
             }
 
@@ -52,5 +52,11 @@ public class FilesIO {
         }
 
         return fileLines;
+    }
+
+    public static List<File> getAllFiles(String directory){
+        File folder = new File(directory);
+        File[] listOfFiles = folder.listFiles();
+        return Arrays.asList(listOfFiles);
     }
 }

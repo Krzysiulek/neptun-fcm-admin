@@ -2,19 +2,15 @@ package com.krisczar.neptun.FCM;
 
 import com.krisczar.neptun.RulesResolver.ResolverNew;
 import com.krisczar.neptun.SupportServices.FilesIO;
+import com.krisczar.neptun.TOs.FCMPreferences;
 import org.megadix.jfcm.CognitiveMap;
 import org.megadix.jfcm.Concept;
 import org.megadix.jfcm.ConceptActivator;
-import org.megadix.jfcm.FcmConnection;
 import org.megadix.jfcm.conn.WeightedConnection;
+import org.megadix.jfcm.utils.FcmIO;
+import sun.jvm.hotspot.utilities.Assert;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.*;
 
 public class FCMFileLoader {
@@ -30,11 +26,28 @@ public class FCMFileLoader {
 	Set<String> WTs = new HashSet<>();
 
 	public FCMFileLoader(ConceptActivator af) {
-		// here map is creating
-		loadAllFiles();
+		if(FCMPreferences.isExternalFilesLoading)
+			loadExternalFiles();
+		else
+			loadAllFiles();
+
 		loadWags();
 		loadConcepts(af);
 		loadConnections();
+
+		if (FCMPreferences.isLoadingConceptWeightsFromFile){
+			createDefaultConceptsWags();
+		}
+
+		if (FCMPreferences.isLoadingConnectionsWeightsFromFile){
+			createDefaultConnectionsWags();
+		}
+
+		try {
+			FcmIO.saveAsXml(map, "defaultNeptunMap.xml");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public CognitiveMap getMap() {
@@ -78,10 +91,17 @@ public class FCMFileLoader {
 		line.addAll(loadAllLinesFromFileUtf8("files/fcm-files/92.txt"));
 
 		// te pliki nalezy odkomentowac w celu przywrocenia polaczen OP:WT w mapie
-//        line.addAll(FilesIO.loadAllLines("files/fcm-files/130.txt"));
-//        line.addAll(FilesIO.loadAllLines("files/fcm-files/132.txt"));
+        line.addAll(FilesIO.loadAllLines("files/fcm-files/130.txt"));
+        line.addAll(FilesIO.loadAllLines("files/fcm-files/132.txt"));
 
 //        loadAdditionalLines();
+	}
+
+	private void loadExternalFiles(){
+		FilesIO.getAllFiles("files/additional_fcm_files")
+				.forEach(file -> {
+					line.addAll(loadAllLinesFromFileUtf8(file.getAbsolutePath()));
+				});
 	}
 
 	private void loadAdditionalLines() {
@@ -113,23 +133,40 @@ public class FCMFileLoader {
 	}
 
 	private void loadConcepts(ConceptActivator af) {
-		line.forEach(conceptLine -> createConceptsByLine(conceptLine));
+		try{
+			line.forEach(conceptLine -> createConceptsByLine(conceptLine));
+			conceptsSet.forEach(con -> finalCreationOfConcept(con, af));
+		}
+		catch (ArrayIndexOutOfBoundsException e){
+			e.printStackTrace();
+		}
 
-		conceptsSet.forEach(con -> finalCreationOfConcept(con, af));
 	}
 
 	private void createConceptsByLine(String lineFromFile) {
-		String[] extractedConceptNames = lineFromFile.split(":");
-		String[] extractedSecountPartOfExtractedConceptNames = extractedConceptNames[1].split("="); // sorry, i didnt
-																									// find better name
-		String conceptName1 = extractedConceptNames[0];
-		String conceptName2 = extractedSecountPartOfExtractedConceptNames[0];
+		String conceptName1;
+		String conceptName2;
 
-//        System.out.println(conceptName1);
-//        System.out.println(conceptName2);
+		try{
+			String[] extractedConceptNames = lineFromFile.split(":");
+			String[] extractedSecountPartOfExtractedConceptNames = extractedConceptNames[1].split("="); // sorry, i didnt
 
-		conceptsSet.add(conceptName1);
-		conceptsSet.add(conceptName2);
+			conceptName1 = extractedConceptNames[0];
+			conceptName2 = extractedSecountPartOfExtractedConceptNames[0];
+			conceptsSet.add(conceptName1);
+			conceptsSet.add(conceptName2);
+		}
+		catch (ArrayIndexOutOfBoundsException e){
+			System.out.println(lineFromFile);
+			String[] extractedConceptNames = lineFromFile.split(";");
+
+			if(extractedConceptNames.length > 2){
+				conceptName1 = extractedConceptNames[0];
+				conceptName2 = extractedConceptNames[1];
+				conceptsSet.add(conceptName1);
+				conceptsSet.add(conceptName2);
+			}
+		}
 	}
 
 	private void finalCreationOfConcept(String conceptName, ConceptActivator af) {
@@ -142,7 +179,7 @@ public class FCMFileLoader {
 
 	private double resolveConceptOutput(String conceptName) {
 		if (ResolverNew.isCodeInResolvedList(conceptName)) {
-			return 0.5;
+			return 0.0;
 		}
 
 		else {
@@ -159,16 +196,32 @@ public class FCMFileLoader {
 	}
 
 	private void createConnection(String lineFromFile) {
-		String[] extractedTmp1 = lineFromFile.split(":");
-		String[] extractedTmp2 = extractedTmp1[1].split("=");
+		String concept1 = "";
+		String concept2 = "";
+		String weightFromFile = "WAG1";
 
-		String concept1 = extractedTmp1[0];
-		String concept2 = extractedTmp2[0];
+		try{
+			String[] extractedTmp1 = lineFromFile.split(":");
+			String[] extractedTmp2 = extractedTmp1[1].split("=");
+
+			concept1 = extractedTmp1[0];
+			concept2 = extractedTmp2[0];
+			weightFromFile = extractedTmp2[1];
+		}catch (ArrayIndexOutOfBoundsException e){
+			String[] extractedTmp = lineFromFile.split(";");
+
+			if(extractedTmp.length == 3){
+				concept1 = extractedTmp[0];
+				concept2 = extractedTmp[1];
+				weightFromFile = extractedTmp[2];
+			}
+		}
+
 
 		double weight;
 		try {
-			if ((wagsMap != null)&&(wagsMap.containsKey(extractedTmp2[1]))){
-			weight = wagsMap.get(extractedTmp2[1]);
+			if ((wagsMap != null)&&(wagsMap.containsKey(weightFromFile))){
+			weight = wagsMap.get(weightFromFile);
 			}
 			else {
 				weight = 0.0;
@@ -191,17 +244,18 @@ public class FCMFileLoader {
 //                .append(concept2));
 
 		String connectionName = concept1 + " -> " + concept2;
-		FcmConnection conn_1 = new WeightedConnection(connectionName, null, weight);
+		WeightedConnection conn_1 = new WeightedConnection(connectionName, null, weight);
 
-		map.addConnection(conn_1);
-		map.connect(concept1, connectionName, concept2);
+		try{
+			map.addConnection(conn_1);
+			map.connect(concept1, connectionName, concept2);
+		}catch (IllegalArgumentException e){
+			e.printStackTrace();
+		}
+
+
 	}
 
-	// zakomentowana sekcja jest dlatego, zeby do zadnych polaczen nie bylo nic
-	// dodawane
-	// w celu przywrocenia funkcjonalnosci dotyczacej dodawania wag do polaczen,
-	// wystarczy odkomentowac
-	// i ewentualnie zmienic nazwy plikow ktore maja miec na to wplyw
 	private double getAdditionalWeight(String conceptWhileCreating1, String conceptWhileCreating2) {
 //        if (conceptWhileCreating1.matches("WT\\d+")){
 //            if (isCodeInWTs(conceptWhileCreating1)){
@@ -244,5 +298,72 @@ public class FCMFileLoader {
 				return true;
 		}
 		return false;
+	}
+
+	private void createDefaultConnectionsWags(){
+		List<String> defaultConnectionsWags = new ArrayList<>();
+
+		FilesIO.getAllFiles("files/default_fcm_values/connections")
+				.forEach(file -> {
+					defaultConnectionsWags.addAll(FilesIO.loadAllLines(file.getAbsolutePath()));
+				});
+
+		defaultConnectionsWags
+				.forEach(fileLine ->{
+					String[] separetedLine = fileLine.split(";");
+					String from = separetedLine[0];
+					String to = separetedLine[1];
+					double weight;
+
+					try {
+						weight = wagsMap.get(separetedLine[2]);
+					}
+					catch (Exception e){
+                        System.out.println("Weight not found for Connection [" + fileLine + "]");
+						weight = 0;
+					}
+
+					try{
+						map.removeConnection(from + " -> " + to);
+
+						WeightedConnection connection = new WeightedConnection(from + " -> " + to, "", weight);
+						map.addConnection(connection);
+						map.connect(from, connection.getName(), to);
+					}
+					catch (Exception e){
+						System.out.println("Cannot remove connection. It doesnt exists [" + fileLine + "]");
+					}
+				});
+	}
+
+	private void createDefaultConceptsWags(){
+        List<String> defaultConceptsWags = new ArrayList<>();
+
+        FilesIO.getAllFiles("files/default_fcm_values/concepts")
+                .forEach(file -> {
+                    defaultConceptsWags.addAll(FilesIO.loadAllLines(file.getAbsolutePath()));
+                });
+
+        defaultConceptsWags
+                .forEach(fileLine ->{
+                    String[] separetedLine = fileLine.split(";");
+                    String conceptName = separetedLine[0];
+                    double weight;
+
+                    try {
+                        weight = wagsMap.get(separetedLine[1]);
+                    }
+                    catch (Exception e){
+                        System.out.println("Weight not found for Concept [" + fileLine + "]");
+                        weight = 0;
+                    }
+
+                    try{
+                        map.getConcept(conceptName).setOutput(weight);
+                    }
+                    catch (Exception e){
+                        System.out.println("Cannot remove connection. It doesnt exists");
+                    }
+                });
 	}
 }
