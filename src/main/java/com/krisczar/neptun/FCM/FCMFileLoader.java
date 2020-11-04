@@ -8,7 +8,6 @@ import org.megadix.jfcm.Concept;
 import org.megadix.jfcm.ConceptActivator;
 import org.megadix.jfcm.conn.WeightedConnection;
 import org.megadix.jfcm.utils.FcmIO;
-import sun.jvm.hotspot.utilities.Assert;
 
 import java.io.*;
 import java.util.*;

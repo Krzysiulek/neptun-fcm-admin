@@ -32,8 +32,8 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.3" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.5" level="project" />
-    <orderEntry type="library" exported="" name="Maven: org.megadix.jfcm:jfcm-core:1.4.3" level="project" />
     <orderEntry type="library" name="Maven: javax.xml:jaxp-api:1.4.2" level="project" />
-    <orderEntry type="library" exported="" name="Maven: com.github.megadix:jfcm:v1.4.2" level="project" />
+    <orderEntry type="library" name="Maven: org.megadix.jfcm:jfcm-core:1.4.3" level="project" />
+    <orderEntry type="library" name="Maven: com.github.megadix:jfcm:v1.4.2" level="project" />
   </component>
 </module>

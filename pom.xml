@@ -18,8 +18,30 @@
 
                 </configuration>
             </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.krisczar.neptun.FCM.FCMTestApp</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
     <dependencies>
 
@@ -77,11 +99,6 @@
             <artifactId>junit</artifactId>
             <version>4.13-beta-2</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.megadix.jfcm</groupId>
-            <artifactId>jfcm-core</artifactId>
-            <version>1.4.3</version>
         </dependency>
         <dependency>
             <groupId>com.github.megadix</groupId>
